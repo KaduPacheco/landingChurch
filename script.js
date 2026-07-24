@@ -3,6 +3,8 @@
     ? new URL("/api/leads", window.location.origin).toString()
     : "";
   const COMMERCIAL_FORM_SOURCE = "landing_simplechurch";
+  const SALES_WHATSAPP_URL =
+    "https://wa.me/5521974340508?text=Ol%C3%A1%2C%20estou%20entrando%20em%20contato%20via%20landing%20page.";
   const header = document.querySelector("[data-header]");
   const menuButton = document.querySelector("[data-menu-toggle]");
 
@@ -24,10 +26,19 @@
   const nav = document.querySelector("[data-nav]");
 
   document.querySelectorAll("[data-commercial-cta]").forEach((link) => {
-    link.setAttribute("href", "#demonstracao");
+    const label = link.textContent.trim().replace(/\s+/g, " ");
+    const isSalesContact = label === "Falar com vendas";
+
+    link.setAttribute("href", isSalesContact ? SALES_WHATSAPP_URL : "#demonstracao");
+    if (isSalesContact) {
+      link.setAttribute("target", "_blank");
+      link.setAttribute("rel", "noopener noreferrer");
+      link.setAttribute("aria-label", "Falar com vendas pelo WhatsApp");
+    }
+
     link.addEventListener("click", () => {
       trackConversion("commercial_cta_click", {
-        label: link.textContent.trim().replace(/\s+/g, " "),
+        label,
         section: link.closest("section")?.id || "header_footer",
       });
     });

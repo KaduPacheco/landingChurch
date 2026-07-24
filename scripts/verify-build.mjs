@@ -1,21 +1,34 @@
 import { accessSync, constants } from "node:fs";
+import { fileURLToPath } from "node:url";
 
-const requiredFiles = [
+export const staticFiles = [
   "index.html",
   "obrigado.html",
+  "privacidade.html",
+  "termos.html",
   "styles.css",
   "script.js",
   "analytics.js",
   "analytics-config.js",
+  "assets/favicon.svg",
+  "assets/og-simplechurch.png",
+  "assets/og-simplechurch.svg",
+];
+
+export const requiredFiles = [
+  ...staticFiles,
   "api/leads.js",
   "lib/leads.js",
   "vercel.json",
-  "assets/favicon.svg",
-  "assets/og-simplechurch.png",
 ];
 
-for (const file of requiredFiles) {
-  accessSync(file, constants.R_OK);
+export function verifyBuildFiles() {
+  for (const file of requiredFiles) {
+    accessSync(file, constants.R_OK);
+  }
 }
 
-console.log("Build check passed.");
+if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+  verifyBuildFiles();
+  console.log("Build check passed.");
+}

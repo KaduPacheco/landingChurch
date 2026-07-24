@@ -13,3 +13,4 @@ Thumbs.db
 debug.log
 visual-validation/
 supabase/.temp/
+dist/

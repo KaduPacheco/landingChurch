@@ -1,0 +1,41 @@
+{
+    "cleanUrls":  true,
+    "trailingSlash":  false,
+    "headers":  [
+                    {
+                        "source":  "/(.*)",
+                        "headers":  [
+                                        {
+                                            "key":  "X-Content-Type-Options",
+                                            "value":  "nosniff"
+                                        },
+                                        {
+                                            "key":  "Referrer-Policy",
+                                            "value":  "strict-origin-when-cross-origin"
+                                        },
+                                        {
+                                            "key":  "Permissions-Policy",
+                                            "value":  "camera=(), microphone=(), geolocation=()"
+                                        },
+                                        {
+                                            "key":  "Content-Security-Policy",
+                                            "value":  "default-src \u0027self\u0027; script-src \u0027self\u0027 https://www.googletagmanager.com https://connect.facebook.net; connect-src \u0027self\u0027 https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://www.facebook.com; img-src \u0027self\u0027 data: https://www.facebook.com; style-src \u0027self\u0027 \u0027unsafe-inline\u0027 https://fonts.googleapis.com; font-src \u0027self\u0027 https://fonts.gstatic.com; base-uri \u0027self\u0027; form-action \u0027self\u0027"
+                                        }
+                                    ]
+                    }
+                ],
+    "rewrites":  [
+                     {
+                         "source":  "/privacidade",
+                         "destination":  "/privacidade.html"
+                     },
+                     {
+                         "source":  "/termos",
+                         "destination":  "/termos.html"
+                     },
+                     {
+                         "source":  "/obrigado",
+                         "destination":  "/obrigado.html"
+                     }
+                 ]
+}

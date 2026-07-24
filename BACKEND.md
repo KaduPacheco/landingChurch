@@ -74,6 +74,6 @@ Antes de trafego pago, valide na URL final:
 
 - formulario enviando para `POST /api/leads` com resposta `201`;
 - `ALLOWED_ORIGINS` contendo exatamente os dominios publicos da landing;
-- preview OG com `https://simplechurch.com.br/assets/og-simplechurch.png`;
+- preview OG com `https://simplechurch.com.br/assets/simplechurch-logo-principal.png`;
 - tags de analytics recebendo os eventos esperados;
 - `privacidade.html` e `termos.html` revisados por advogado antes de uso formal.

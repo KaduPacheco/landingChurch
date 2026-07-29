@@ -47,24 +47,29 @@ O endpoint valida os dados, aplica limite de requisicoes por IP e insere na tabe
 
 Os eventos do formulario e CTAs sao enviados para `window.dataLayer` e para o evento customizado `simplechurch:conversion`.
 
-Para ativar analytics real, edite `analytics-config.js` no deploy:
+Configure os IDs reais nas variáveis de ambiente da Vercel. O build valida os formatos e gera `dist/analytics-config.js`:
 
-```js
-window.SIMPLECHURCH_ANALYTICS = {
-  gtmId: "GTM-XXXXXXX",
-  ga4Id: "G-XXXXXXXXXX",
-  metaPixelId: "000000000000000",
-  directEventForwarding: true,
-};
+```env
+GTM_ID=GTM-XXXXXXX
+GA4_ID=G-XXXXXXXXXX
+META_PIXEL_ID=000000000000000
+ANALYTICS_DIRECT_FORWARDING=false
 ```
 
+Quando `GTM_ID` estiver definido, o encaminhamento direto fica desativado por padrão para evitar eventos duplicados. Use `ANALYTICS_DIRECT_FORWARDING=true` apenas quando GA4 e Meta não forem disparados pelo GTM.
 Eventos emitidos:
 
 - `commercial_cta_click`
+- `navigation_click`
+- `mobile_menu_toggle`
+- `hero_secondary_click`
+- `resource_interest`
+- `faq_toggle`
+- `demo_form_start`
+- `demo_form_validation_error`
 - `demo_form_submit_attempt`
 - `demo_form_submit_success`
 - `demo_form_submit_error`
-- `demo_form_submit_fallback`
 
 Se o GA4 e o Meta Pixel forem disparados por tags dentro do GTM, mantenha apenas `gtmId` preenchido ou defina `directEventForwarding: false` para evitar duplicidade.
 

@@ -27,7 +27,8 @@
 
   document.querySelectorAll("[data-commercial-cta]").forEach((link) => {
     const label = link.textContent.trim().replace(/\s+/g, " ");
-    const isSalesContact = label === "Falar com vendas";
+    const location = link.dataset.ctaLocation || link.closest("section")?.id || "footer";
+    const isSalesContact = location === "footer_whatsapp" || link.href.startsWith("https://wa.me/");
 
     link.setAttribute("href", isSalesContact ? SALES_WHATSAPP_URL : "#demonstracao");
     if (isSalesContact) {
@@ -37,9 +38,29 @@
     }
 
     link.addEventListener("click", () => {
-      trackConversion("commercial_cta_click", {
-        label,
-        section: link.closest("section")?.id || "header_footer",
+      trackConversion("commercial_cta_click", { label, location });
+    });
+  });
+
+  document.querySelectorAll("[data-nav-link]").forEach((link) => {
+    link.addEventListener("click", () => {
+      trackConversion("navigation_click", {
+        label: link.textContent.trim(),
+        target: link.getAttribute("href"),
+        menu: window.innerWidth <= 960 ? "mobile" : "desktop",
+      });
+    });
+  });
+
+  document.querySelector("[data-hero-secondary]")?.addEventListener("click", () => {
+    trackConversion("hero_secondary_click", { target: "#recursos" });
+  });
+
+  document.querySelectorAll("[data-resource-link]").forEach((link) => {
+    link.addEventListener("click", () => {
+      trackConversion("resource_interest", {
+        resource: link.dataset.resource,
+        target: link.getAttribute("href"),
       });
     });
   });
@@ -48,7 +69,9 @@
   const demoStatus = document.querySelector("[data-demo-status]");
   const demoSubmit = document.querySelector("[data-demo-submit]");
   const phoneInput = demoForm?.querySelector('input[name="phone"]');
+  const formFields = [...(demoForm?.querySelectorAll("input:not([name=companyWebsite]), select") || [])];
   let isSubmitting = false;
+  let formStarted = false;
 
   const setFormStatus = (message = "", type = "") => {
     if (!demoStatus) return;
@@ -69,21 +92,48 @@
     const digits = phoneInput.value.replace(/\D/g, "");
     const valid = digits.length >= 10 && digits.length <= 11;
     phoneInput.setCustomValidity(valid ? "" : "Informe um WhatsApp com DDD.");
-    phoneInput.toggleAttribute("aria-invalid", !valid && phoneInput.value.length > 0);
     return valid;
+  };
+
+  const getFieldMessage = (field) => {
+    if (field.validity.valid) return "";
+    if (field.name === "phone") return "Informe um WhatsApp válido com DDD.";
+    if (field.name === "privacyConsent") return "Autorize o contato para continuar.";
+    if (field.validity.valueMissing) return "Preencha este campo.";
+    if (field.validity.typeMismatch && field.type === "email") return "Informe um e-mail válido.";
+    if (field.validity.tooShort) return `Use pelo menos ${field.minLength} caracteres.`;
+    return "Revise este campo.";
+  };
+
+  const updateFieldState = (field, showError = true) => {
+    if (field.name === "phone") validatePhone();
+    const message = showError ? getFieldMessage(field) : "";
+    field.toggleAttribute("aria-invalid", Boolean(message));
+    const error = field.getAttribute("aria-describedby")
+      ?.split(" ")
+      .map((id) => document.getElementById(id))
+      .find((element) => element?.classList.contains("form-field-error"));
+    if (error) error.textContent = message;
+    return !message;
   };
 
   phoneInput?.addEventListener("input", () => {
     phoneInput.value = formatPhone(phoneInput.value);
-    validatePhone();
   });
 
-  demoForm?.querySelectorAll("input, select").forEach((field) => {
+  formFields.forEach((field) => {
     field.addEventListener("input", () => {
-      field.toggleAttribute("aria-invalid", !field.validity.valid && field.value.length > 0);
+      updateFieldState(field, false);
       if (demoStatus?.dataset.status === "error") setFormStatus();
     });
-    field.addEventListener("blur", () => field.toggleAttribute("aria-invalid", !field.validity.valid));
+    field.addEventListener("change", () => updateFieldState(field, true));
+    field.addEventListener("blur", () => updateFieldState(field, true));
+  });
+
+  demoForm?.addEventListener("focusin", (event) => {
+    if (formStarted || event.target?.name === "companyWebsite") return;
+    formStarted = true;
+    trackConversion("demo_form_start");
   });
 
   demoForm?.addEventListener("submit", async (event) => {
@@ -91,9 +141,14 @@
     if (isSubmitting) return;
 
     validatePhone();
-    if (!demoForm.reportValidity()) {
+    let firstInvalid;
+    formFields.forEach((field) => {
+      if (!updateFieldState(field, true) && !firstInvalid) firstInvalid = field;
+    });
+    if (firstInvalid || !demoForm.checkValidity()) {
       setFormStatus("Revise os campos destacados antes de enviar.", "error");
-      trackConversion("demo_form_validation_error");
+      trackConversion("demo_form_validation_error", { field: firstInvalid?.name || "unknown" });
+      firstInvalid?.focus();
       return;
     }
 
@@ -144,13 +199,22 @@
         trackConversion("demo_form_submit_success", { transport: "endpoint" });
         setFormStatus("Solicitação recebida. Redirecionando...", "success");
         demoForm.reset();
+        formFields.forEach((field) => updateFieldState(field, false));
         restoreSubmit();
         window.location.assign("/obrigado");
         return;
-      } catch {
+      } catch (error) {
         restoreSubmit();
-        trackConversion("demo_form_submit_error", { transport: "endpoint" });
-        setFormStatus("Não foi possível enviar agora. Seus dados continuam no formulário para você tentar novamente.", "error");
+        trackConversion("demo_form_submit_error", {
+          transport: "endpoint",
+          reason: error?.name === "AbortError" ? "timeout" : "request_failed",
+        });
+        setFormStatus(
+          error?.name === "AbortError"
+            ? "O envio demorou mais que o esperado. Seus dados foram mantidos para você tentar novamente."
+            : "Não foi possível enviar agora. Seus dados continuam no formulário para você tentar novamente.",
+          "error",
+        );
         return;
       } finally {
         window.clearTimeout(timeout);
@@ -176,11 +240,12 @@
     menuButton.setAttribute("aria-label", isOpen ? "Abrir menu" : "Fechar menu");
     nav?.classList.toggle("open", !isOpen);
     document.body.classList.toggle("menu-open", !isOpen);
+    trackConversion("mobile_menu_toggle", { state: isOpen ? "closed" : "opened" });
   });
 
   nav?.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 820) closeMenu();
+    if (window.innerWidth > 960) closeMenu();
   });
 
   const updateHeader = () => header?.classList.toggle("scrolled", window.scrollY > 12);
@@ -193,6 +258,10 @@
       const panel = document.getElementById(button.getAttribute("aria-controls"));
       button.setAttribute("aria-expanded", String(!expanded));
       if (panel) panel.hidden = expanded;
+      trackConversion("faq_toggle", {
+        question: button.childNodes[0]?.textContent?.trim() || button.textContent.trim(),
+        state: expanded ? "closed" : "opened",
+      });
     });
   });
 

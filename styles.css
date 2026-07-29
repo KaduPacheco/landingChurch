@@ -775,7 +775,7 @@ h1 em, h2 em { color: var(--teal-700); font-style: normal; }
 .hero-copy h1 { max-width: 630px; font-size: clamp(38px, 4.5vw, 67px); line-height: 1.04; letter-spacing: -3.4px; }
 .hero-copy > p { max-width: 540px; font-size: 17px; line-height: 1.72; }
 .hero-actions { margin-top: 31px; }
-.hero-actions::after { content: "Demonstracao guiada, sem compromisso"; flex-basis: 100%; color: #5b7478; font-size: 11px; font-weight: 700; letter-spacing: .1px; }
+.hero-actions::after { content: "Demonstração guiada, sem compromisso"; flex-basis: 100%; color: #5b7478; font-size: 11px; font-weight: 700; letter-spacing: .1px; }
 .hero-visual { filter: drop-shadow(0 35px 45px rgba(7, 55, 62, .09)); }
 .trust-strip { border: 0; background: var(--navy-950); color: #d4e5e5; }
 .trust-inner { min-height: 92px; }
@@ -1158,4 +1158,106 @@ h1 em, h2 em { color: var(--teal-700); font-style: normal; }
   }
   .trust-items span::after { display: none; }
   .proof-section { padding-top: 76px; }
+}
+
+/* Conversion, accessibility and mobile hardening */
+.button {
+  max-width: 100%;
+  text-align: center;
+}
+
+.button svg,
+.button span {
+  flex: 0 0 auto;
+}
+
+.demo-form input[aria-invalid],
+.demo-form select[aria-invalid] {
+  border-color: #f0a4a0;
+  box-shadow: 0 0 0 3px rgba(240, 164, 160, .18);
+}
+
+.demo-form-status[data-status="loading"] { color: #e5fffc; }
+.demo-form-status[data-status="success"] { color: #9af0c7; }
+.demo-form-status[data-status="error"] { color: #ffd5d2; font-weight: 750; }
+
+.demo-form .button[aria-busy="true"] {
+  cursor: progress;
+}
+
+.demo-form input,
+.demo-form select,
+.demo-form-consent span,
+.faq-item button,
+.module-card p,
+.proof-cards p {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 820px) {
+  .main-nav {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .main-nav > a,
+  .mobile-actions .button {
+    min-height: 48px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-copy {
+    text-align: left;
+  }
+
+  .hero-copy .eyebrow,
+  .hero-copy > p,
+  .hero-actions,
+  .hero-points {
+    margin-inline: 0;
+    justify-content: flex-start;
+  }
+
+  .hero h1,
+  .cta-inner h2,
+  .section-heading h2,
+  .structure-copy h2,
+  .permissions-copy h2,
+  .app-copy h2,
+  .benefits-copy h2,
+  .faq-intro h2,
+  .proof-copy h2 {
+    letter-spacing: 0;
+  }
+
+  .demo-form input,
+  .demo-form select {
+    min-height: 48px;
+    font-size: 16px;
+  }
+
+  .demo-form .button {
+    width: 100%;
+    min-height: 54px;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 374px) {
+  .app-showcase {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .cta-inner h2,
+  .proof-copy h2,
+  .section-heading h2,
+  .structure-copy h2,
+  .permissions-copy h2,
+  .app-copy h2,
+  .benefits-copy h2,
+  .faq-intro h2 {
+    font-size: 32px;
+  }
 }

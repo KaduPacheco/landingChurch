@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="SimpleChurch centraliza pessoas, financeiro, EBD, eventos, carteirinhas, congregações e o App do membro em uma gestão simples e segura."
+      content="SimpleChurch ajuda igrejas e congregações a centralizar pessoas, financeiro, EBD, eventos, carteirinhas e App do membro em uma gestão simples, segura e organizada."
     />
     <meta name="theme-color" content="#062f3a" />
     <meta name="color-scheme" content="light" />
@@ -18,9 +18,9 @@
       content="Toda a gestão da sua igreja em um só lugar, com organização por congregação e experiência mobile para membros."
     />
     <meta property="og:url" content="https://simplechurch.com.br/" />
-    <meta property="og:image" content="https://simplechurch.com.br/assets/simplechurch-logo-principal.png" />
-    <meta property="og:image:width" content="4608" />
-    <meta property="og:image:height" content="2049" />
+    <meta property="og:image" content="https://simplechurch.com.br/assets/og-simplechurch.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="SimpleChurch — Gestão completa para igrejas" />
     <meta
@@ -30,7 +30,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&display=swap" rel="stylesheet" />
-    <link rel="icon" href="assets/simplechurch-icon-dark.png" type="image/png" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
     <script type="application/ld+json">
       {
@@ -48,7 +48,7 @@
             "priceCurrency": "BRL"
           }
         },
-        "logo": "https://simplechurch.com.br/assets/simplechurch-logo-principal.png",
+        "logo": "https://simplechurch.com.br/assets/simplechurch-icon-dark-128.png",
         "publisher": {
           "@type": "Organization",
           "name": "SimpleChurch",
@@ -72,7 +72,7 @@
     <header class="site-header" data-header>
       <div class="container header-inner">
         <a class="brand" href="#inicio" aria-label="SimpleChurch, página inicial">
-          <img class="brand-mark" src="assets/simplechurch-icon-light.png" alt="" decoding="async" />
+          <img class="brand-mark" src="assets/simplechurch-icon-light-128.png" alt="" width="38" height="38" decoding="async" fetchpriority="high" />
           <span>Simple<span>Church</span></span>
         </a>
 
@@ -142,7 +142,7 @@
               </div>
               <div class="dashboard-body">
                 <aside class="mock-sidebar">
-                  <div class="mock-logo"><img src="assets/simplechurch-icon-dark.png" alt="" decoding="async" /><b>SimpleChurch</b></div>
+                  <div class="mock-logo"><img src="assets/simplechurch-icon-dark-128.png" alt="" width="20" height="20" loading="lazy" decoding="async" /><b>SimpleChurch</b></div>
                   <small>GESTÃO</small>
                   <ul>
                     <li class="active"><i>⌂</i><span>Visão geral</span></li>
@@ -187,7 +187,7 @@
                   <span>M</span>
                 </div>
                 <div class="app-hero-card">
-                  <div class="app-brand-line"><img src="assets/simplechurch-icon-dark.png" alt="" decoding="async" /><small>MINHA IGREJA</small></div>
+                  <div class="app-brand-line"><img src="assets/simplechurch-icon-dark-128.png" alt="" width="18" height="18" loading="lazy" decoding="async" /><small>MINHA IGREJA</small></div>
                   <strong>Bem-vindo ao SimpleChurch</strong>
                   <span>Acompanhe sua vida na igreja</span>
                 </div>
@@ -505,16 +505,16 @@
           <p>Conheça os módulos do SimpleChurch e veja como a plataforma pode apoiar a rotina da sua igreja e congregações.</p>
           <form class="demo-form" data-demo-form novalidate>
             <div class="demo-form-grid">
-              <label>Nome<input name="name" type="text" autocomplete="name" placeholder="Seu nome" required /></label>
-              <label>Igreja<input name="church" type="text" autocomplete="organization" placeholder="Nome da igreja" required /></label>
-              <label>WhatsApp<input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" required /></label>
-              <label>E-mail<input name="email" type="email" autocomplete="email" placeholder="voce@igreja.com.br" required /></label>
+              <label>Nome<input name="name" type="text" autocomplete="name" placeholder="Seu nome" minlength="2" maxlength="120" required /></label>
+              <label>Igreja<input name="church" type="text" autocomplete="organization" placeholder="Nome da igreja" minlength="2" maxlength="160" required /></label>
+              <label>WhatsApp<input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" minlength="14" maxlength="15" required /></label>
+              <label>E-mail<input name="email" type="email" autocomplete="email" placeholder="voce@igreja.com.br" maxlength="160" required /></label>
               <label class="demo-form-wide">Quantidade aproximada de membros<select name="size" required><option value="">Selecione uma faixa</option><option>Até 100</option><option>101 a 500</option><option>501 a 1.000</option><option>Mais de 1.000</option></select></label>
               <label class="demo-form-hidden" aria-hidden="true">Site da empresa<input name="companyWebsite" type="text" tabindex="-1" autocomplete="off" /></label>
             </div>
             <label class="demo-form-consent">
               <input name="privacyConsent" type="checkbox" value="yes" required />
-              <span>Autorizo o contato comercial e concordo com a <a href="privacidade.html">Pol&iacute;tica de privacidade</a>.</span>
+              <span>Autorizo o contato comercial do SimpleChurch e concordo com a <a href="privacidade.html">Política de privacidade</a>.</span>
             </label>
             <div class="cta-actions">
               <button class="button button-light button-large" type="submit" data-demo-submit>Solicitar demonstração <span>→</span></button>
@@ -533,7 +533,7 @@
       <div class="container footer-grid">
         <div class="footer-brand">
           <a class="brand brand-light" href="#inicio" aria-label="SimpleChurch, voltar ao início">
-            <img class="brand-mark" src="assets/simplechurch-icon-dark.png" alt="" decoding="async" />
+            <img class="brand-mark" src="assets/simplechurch-icon-dark-128.png" alt="" width="38" height="38" loading="lazy" decoding="async" />
             <span>Simple<span>Church</span></span>
           </a>
           <p>Gestão moderna para igrejas, congregações e pessoas.</p>

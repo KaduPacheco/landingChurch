@@ -10,8 +10,12 @@ export const staticFiles = [
   "script.js",
   "analytics.js",
   "analytics-config.js",
+  "assets/favicon.svg",
+  "assets/og-simplechurch.png",
   "assets/simplechurch-icon-light.png",
   "assets/simplechurch-icon-dark.png",
+  "assets/simplechurch-icon-light-128.png",
+  "assets/simplechurch-icon-dark-128.png",
   "assets/simplechurch-logo-principal.png",
 ];
 

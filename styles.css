@@ -965,7 +965,7 @@ h1 em, h2 em { color: var(--teal-700); font-style: normal; }
   .thank-you-copy, .thank-you-panel { border-radius: 22px; }
   .thank-you-copy { min-height: auto; padding: 36px 24px; }
   .thank-you-copy::after { opacity: .5; width: 44%; min-width: 150px; }
-  .thank-you-copy h1 { max-width: 520px; font-size: clamp(38px, 10vw, 56px); }
+  .thank-you-copy h1 { max-width: 520px; font-size: clamp(36px, 7.2vw, 48px); line-height: 1.08; }
   .thank-you-actions { align-items: stretch; flex-direction: column; }
   .thank-you-actions .button { width: 100%; }
 }
@@ -974,7 +974,7 @@ h1 em, h2 em { color: var(--teal-700); font-style: normal; }
   .thank-you-main { width: min(calc(100% - 24px), 640px); }
   .thank-you-status { display: none; }
   .thank-you-copy { padding: 32px 20px; }
-  .thank-you-copy h1 { font-size: 36px; line-height: 1.06; }
+  .thank-you-copy h1 { font-size: 36px; line-height: 1.08; }
   .thank-you-copy p { font-size: 15px; }
   .thank-you-panel { padding: 22px 18px; }
   .thank-you-steps li { grid-template-columns: 36px 1fr; gap: 12px; }

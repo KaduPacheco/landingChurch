@@ -17,14 +17,18 @@ export const staticFiles = [
   "robots.txt",
   "sitemap.xml",
   "assets/favicon.svg",
+  "assets/favicon-32.png",
+  "assets/apple-touch-icon.png",
+  "assets/simplechurch-symbol.svg",
+  "assets/simplechurch-logo.svg",
+  "assets/product-admin-preview.svg",
+  "assets/product-member-preview.svg",
   "assets/og-simplechurch.png",
   "assets/simplechurch-icon-light.png",
   "assets/simplechurch-icon-dark.png",
   "assets/simplechurch-icon-light-128.png",
   "assets/simplechurch-icon-dark-128.png",
   "assets/simplechurch-logo-principal.png",
-  "assets/product-admin-login.png",
-  "assets/product-member-login.png",
 ];
 
 export const requiredFiles = [

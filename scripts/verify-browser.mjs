@@ -12,7 +12,13 @@ if (!process.env.TEST_BASE_URL) {
 const base = process.env.TEST_BASE_URL || `http://127.0.0.1:${server.address().port}`;
 const browser = process.env.TEST_CDP_URL
   ? await chromium.connectOverCDP(process.env.TEST_CDP_URL)
-  : await chromium.launch({ channel: "chrome", headless: true });
+  : await chromium.launch({
+      channel: process.env.TEST_BROWSER_EXECUTABLE
+        ? undefined
+        : process.env.TEST_BROWSER_CHANNEL || "chrome",
+      executablePath: process.env.TEST_BROWSER_EXECUTABLE,
+      headless: true,
+    });
 const context = await browser.newContext();
 const page = await context.newPage();
 const errors = [];

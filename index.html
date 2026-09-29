@@ -7,7 +7,7 @@
       name="description"
       content="SimpleChurch ajuda igrejas e congregações a centralizar pessoas, financeiro, EBD, eventos, carteirinhas e App do membro em uma gestão simples, segura e organizada."
     />
-    <meta name="theme-color" content="#062f3a" />
+    <meta name="theme-color" content="#163e35" />
     <meta name="color-scheme" content="light" />
     <link rel="canonical" href="https://simplechurch.com.br/" />
     <meta property="og:locale" content="pt_BR" />
@@ -29,7 +29,10 @@
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400..800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;750;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" href="assets/simplechurch-icon-dark-128.png" type="image/png" />
     <link rel="apple-touch-icon" href="assets/simplechurch-icon-dark-128.png" />
     <link rel="stylesheet" href="styles.css" />
@@ -41,14 +44,6 @@
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Web, Android",
         "description": "Plataforma de gestão para igrejas com módulos de pessoas, financeiro, EBD, eventos, carteirinhas, congregações e app do membro.",
-        "offers": {
-          "@type": "Offer",
-          "availability": "https://schema.org/InStock",
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "priceCurrency": "BRL"
-          }
-        },
         "logo": "https://simplechurch.com.br/assets/simplechurch-icon-dark-128.png",
         "publisher": {
           "@type": "Organization",
@@ -67,16 +62,42 @@
     <script src="script.js" defer></script>
     <title>SimpleChurch | Gestão completa para igrejas e congregações</title>
   </head>
+
   <body>
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
-
     <header class="site-header" data-header>
       <div class="container header-inner">
-        <a class="brand" href="#inicio" aria-label="SimpleChurch, página inicial">
-          <img class="brand-mark" src="assets/simplechurch-icon-light-128.png" alt="" width="38" height="38" decoding="async" fetchpriority="high" />
-          <span>Simple<span>Church</span></span>
-        </a>
-
+        <a class="brand" href="/" aria-label="SimpleChurch, página inicial"
+          ><img src="/assets/simplechurch-icon-light-128.png" width="36" height="36" alt="" /><span
+            >simple<span>church</span><sup>®</sup></span
+          ></a
+        >
+        <nav class="main-nav" id="menu-principal" aria-label="Navegação principal" data-nav>
+          <a href="#produto" data-nav-link>Ver o produto</a
+          ><a href="#recursos" data-nav-link>Recursos</a
+          ><a href="#congregacoes" data-nav-link>Para sua igreja</a
+          ><a href="#app" data-nav-link>App do membro</a><a href="#faq" data-nav-link>Dúvidas</a>
+          <div class="mobile-actions">
+            <a
+              href="#demonstracao"
+              class="button button-primary"
+              data-commercial-cta
+              data-cta-location="menu_mobile"
+              >Agendar demonstração<svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                <path d="M6 18 18 6M6 6h12v12" /></svg
+            ></a>
+          </div>
+        </nav>
+        <div class="header-actions">
+          <a
+            href="#demonstracao"
+            class="button button-primary button-small"
+            data-commercial-cta
+            data-cta-location="menu_desktop"
+            >Agendar demonstração<svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+              <path d="M6 18 18 6M6 6h12v12" /></svg
+          ></a>
+        </div>
         <button
           class="menu-toggle"
           type="button"
@@ -85,409 +106,1105 @@
           aria-controls="menu-principal"
           data-menu-toggle
         >
-          <span></span><span></span><span></span>
+          <span></span><span></span>
         </button>
-
-        <nav class="main-nav" id="menu-principal" aria-label="Navegação principal" data-nav>
-          <a href="#recursos" data-nav-link>Recursos</a>
-          <a href="#congregacoes" data-nav-link>Congregações</a>
-          <a href="#app" data-nav-link>App do membro</a>
-          <a href="#faq" data-nav-link>FAQ</a>
-          <div class="mobile-actions">
-            <a class="button button-primary" href="#demonstracao" data-commercial-cta data-cta-location="menu_mobile">Solicitar demonstração</a>
-          </div>
-        </nav>
-
-        <div class="header-actions">
-          <a class="button button-primary button-small" href="#demonstracao" data-commercial-cta data-cta-location="menu_desktop">Solicitar demonstração</a>
-        </div>
       </div>
     </header>
-
     <main id="conteudo">
       <section class="hero" id="inicio">
-        <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
-        <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
         <div class="container hero-grid">
-          <div class="hero-copy reveal">
-            <span class="eyebrow">
-              <svg viewBox="0 0 20 20" aria-hidden="true">
-                <path d="m10 2 2.2 4.7L17 9l-4.8 2.3L10 16l-2.2-4.7L3 9l4.8-2.3L10 2Z" fill="currentColor" />
-              </svg>
-              Gestão completa para igrejas e congregações
-            </span>
-            <h1>Mais clareza para gerir. <em>Mais tempo para cuidar.</em></h1>
+          <div class="hero-copy">
+            <span class="eyebrow"><i></i> GESTÃO PARA IGREJAS E CONGREGAÇÕES</span>
+            <h1>
+              Centralize a gestão.<br /><em
+                >Tenha mais tempo<br class="desktop-break" />
+                para cuidar.</em
+              >
+            </h1>
             <p>
-              Centralize pessoas, financeiro, EBD, eventos e carteirinhas em uma plataforma que respeita
-              a estrutura, os perfis de acesso e a rotina de cada congregação.
+              O SimpleChurch reúne pessoas, financeiro, EBD, eventos, carteirinhas e congregações em
+              um só lugar — com acessos por perfil e um app para aproximar os membros.
             </p>
             <div class="hero-actions">
-              <div class="hero-primary-cta">
-                <a class="button button-primary button-large" href="#demonstracao" data-commercial-cta data-cta-location="hero">
-                  Solicitar demonstração
-                  <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m7 4 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                </a>
-                <small class="hero-microcopy">Demonstração guiada, sem compromisso</small>
-              </div>
-              <a class="hero-secondary-action" href="#recursos" data-hero-secondary><span aria-hidden="true"><svg viewBox="0 0 20 20"><path d="m7.5 5 6 5-6 5V5Z" fill="currentColor" /></svg></span>Ver como funciona</a>
+              <a
+                href="#demonstracao"
+                class="button button-primary"
+                data-commercial-cta
+                data-cta-location="hero"
+                >Agendar demonstração<svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M6 18 18 6M6 6h12v12" /></svg></a
+              ><a class="text-link" href="#produto" data-hero-secondary
+                >Ver o produto
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M5 12h14M13 6l6 6-6 6" /></svg
+              ></a>
             </div>
-            <ul class="hero-points" aria-label="Destaques da plataforma">
-              <li><span aria-hidden="true">✓</span> Gestão por congregação</li>
-              <li><span aria-hidden="true">✓</span> App PWA e Android</li>
-              <li><span aria-hidden="true">✓</span> Permissões por perfil</li>
-            </ul>
+            <div class="hero-assurance">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                <path d="m5 12 4 4L19 6" />
+              </svg>
+              Demonstração guiada <span>·</span> Sem compromisso <span>·</span> Foco na sua rotina
+            </div>
           </div>
-
-          <div class="hero-visual reveal" data-delay="120" aria-label="Prévia visual do sistema e do App do membro">
-            <div class="dashboard-window">
-              <div class="window-bar">
-                <span></span><span></span><span></span>
-                <span class="window-address">app.simplechurch.com.br</span>
+          <div class="hero-visual">
+            <div class="visual-topline">
+              <span>UMA VISÃO CONECTADA DA SUA IGREJA</span><span>VISÃO GERAL</span>
+            </div>
+            <div
+              class="dashboard-window"
+              role="img"
+              aria-label="Prévia ilustrativa do painel com pessoas, finanças e agenda; os dados são exemplos."
+            >
+              <div class="dashboard-toolbar">
+                <span class="window-dots"><i></i><i></i><i></i></span
+                ><span
+                  ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                    <path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z" />
+                    <path d="m8 12 3 3 5-6" />
+                  </svg>
+                  app.simplechurch.com.br</span
+                ><span>↗</span>
               </div>
               <div class="dashboard-body">
-                <aside class="mock-sidebar">
-                  <div class="mock-logo"><img src="assets/simplechurch-icon-dark-128.png" alt="" width="20" height="20" loading="lazy" decoding="async" /><b>SimpleChurch</b></div>
-                  <small>GESTÃO</small>
-                  <ul>
-                    <li class="active"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 11 8-6.5 8 6.5" /><path d="M7 10v9h10v-9M10 19v-5h4v5" /></svg></i><span>Visão geral</span></li>
-                    <li><i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3" /><path d="M4 19v-1.5A4.5 4.5 0 0 1 8.5 13h1A4.5 4.5 0 0 1 14 17.5V19M16 5.5a3 3 0 0 1 0 5.5M17 14a4 4 0 0 1 3 3.9V19" /></svg></i><span>Pessoas</span></li>
-                    <li><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18h16M6.5 15l4-4 3 3L19 7" /><path d="M15 7h4v4" /></svg></i><span>Financeiro</span></li>
-                    <li><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h10a4 4 0 0 1 4 4V19H8a3 3 0 0 1-3-3V5.5Z" /><path d="M8 9h7M8 12h7M8 15h4" /></svg></i><span>EBD</span></li>
-                    <li><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v3M17 4v3M5 8h14" /><rect x="5" y="6" width="14" height="13" rx="2" /><path d="M9 12h2M13 12h2M9 15h2" /></svg></i><span>Eventos</span></li>
-                  </ul>
+                <aside class="dash-sidebar">
+                  <img
+                    src="/assets/simplechurch-icon-light-128.png"
+                    width="28"
+                    height="28"
+                    alt=""
+                  />
+                  <div class="active">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                      <path d="m3 11 9-8 9 8M5 10v11h14V10M9 21v-7h6v7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                      <circle cx="9" cy="8" r="3" />
+                      <path
+                        d="M3 20v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 4v2"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                      <path d="M4 4v16h16M8 15l4-5 4 2 4-7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                      <path
+                        d="M12 6v15M12 6C8 3 4 4 3 5v14c3-1 6-1 9 2 3-3 6-3 9-2V5c-3-1-6-1-9 1Z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                      <rect x="3" y="5" width="18" height="16" rx="3" />
+                      <path d="M7 3v4M17 3v4M3 11h18M8 15h2M14 15h2" />
+                    </svg>
+                  </div>
+                  <div>
+                    <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                      <rect x="3" y="5" width="18" height="15" rx="3" />
+                      <circle cx="8" cy="11" r="2" />
+                      <path d="M5 17a3 3 0 0 1 6 0M14 10h4M14 14h4" />
+                    </svg>
+                  </div>
+                  <span class="sidebar-avatar">AC</span>
                 </aside>
-                <div class="mock-content">
-                  <div class="mock-top">
-                    <div><small>PAINEL</small><strong>Olá, seja bem-vindo</strong></div>
-                    <div class="mock-user"><span></span><b>Admin</b></div>
+                <div class="dash-main">
+                  <div class="dash-breadcrumb">
+                    Comunidade Central <span>⌄</span
+                    ><i
+                      ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                        <path d="M5 17h14l-2-3V9A5 5 0 0 0 7 9v5l-2 3ZM10 21h4" /></svg
+                    ></i>
                   </div>
-                  <div class="mock-cards">
-                    <div><i class="teal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 19v-1.5A3.5 3.5 0 0 0 12.5 14h-5A3.5 3.5 0 0 0 4 17.5V19M10 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6M19.5 19v-1.2a3 3 0 0 0-2.3-2.9M15.5 5.2a3 3 0 0 1 0 5.6" /></svg></i><small>Pessoas</small><strong>Cadastros</strong><span>Ver módulo →</span></div>
-                    <div><i class="blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17h16M7 14l4-4 3 3 5-6M15 7h4v4" /></svg></i><small>Financeiro</small><strong>Caixa e lançamentos</strong><span>Ver módulo →</span></div>
-                    <div><i class="gold"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h10a4 4 0 0 1 4 4V19H8a3 3 0 0 1-3-3V5.5ZM8 9h7M8 12h7M8 15h4" /></svg></i><small>EBD</small><strong>Classes e frequência</strong><span>Ver módulo →</span></div>
-                  </div>
-                  <div class="mock-panel">
-                    <div class="mock-panel-head"><strong>Agenda da igreja</strong><span>Ver eventos</span></div>
-                    <div class="mock-event">
-                      <b><span>18</span> JUL</b>
-                      <div><strong>Evento da igreja</strong><small>19:30 · Templo</small></div>
-                      <i>Confirmado</i>
+                  <div class="dash-heading">
+                    <div>
+                      <small>QUARTA-FEIRA, 16 DE SETEMBRO</small>
+                      <h3>Uma visão de tudo.<span>Mais perto de todos.</span></h3>
                     </div>
-                    <div class="mock-event">
-                      <b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h16v10H4zM3 7h18v3H3zM12 7v13M7.5 7C5 7 4.5 3.5 7 3.5c2 0 5 3.5 5 3.5s3-3.5 5-3.5c2.5 0 2 3.5-.5 3.5" /></svg></b>
-                      <div><strong>Mensagens de aniversário</strong><small>Aniversariantes do dia</small></div>
-                      <i>Cuidar</i>
+                    <span class="dash-date">Este mês ⌄</span>
+                  </div>
+                  <div class="dash-stats">
+                    <div>
+                      <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                        <circle cx="9" cy="8" r="3" />
+                        <path
+                          d="M3 20v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 4v2"
+                        /></svg
+                      ><small>Gestão de pessoas</small
+                      ><strong>Pessoas <span>e famílias</span></strong>
+                      <p>Cadastros no contexto certo</p>
+                    </div>
+                    <div>
+                      <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                        <path d="M12 2v6M9 5h6M3 13l9-6 9 6v8H3ZM9 21v-6h6v6" /></svg
+                      ><small>Estrutura da igreja</small
+                      ><strong>Matriz <span>e congregações</span></strong>
+                      <p>Cada unidade organizada</p>
+                    </div>
+                  </div>
+                  <div class="dash-bottom">
+                    <div class="dash-chart">
+                      <div>
+                        <strong>Movimentação financeira</strong><small>Visão do semestre</small>
+                      </div>
+                      <div class="chart-bars">
+                        <div>
+                          <i style="--bar: 42%"></i><b style="--bar: 27.3%"></b><span>Abr</span>
+                        </div>
+                        <div>
+                          <i style="--bar: 67%"></i><b style="--bar: 43.550000000000004%"></b
+                          ><span>Mai</span>
+                        </div>
+                        <div>
+                          <i style="--bar: 49%"></i><b style="--bar: 31.85%"></b><span>Jun</span>
+                        </div>
+                        <div>
+                          <i style="--bar: 79%"></i><b style="--bar: 51.35%"></b><span>Jul</span>
+                        </div>
+                        <div>
+                          <i style="--bar: 63%"></i><b style="--bar: 40.95%"></b><span>Ago</span>
+                        </div>
+                        <div>
+                          <i style="--bar: 93%"></i><b style="--bar: 60.45%"></b><span>Set</span>
+                        </div>
+                      </div>
+                      <div class="chart-legend"><span>● Entradas</span><span>● Saídas</span></div>
+                    </div>
+                    <div class="dash-agenda">
+                      <strong>Na agenda</strong>
+                      <div>
+                        <b>18<small>SET</small></b
+                        ><span><strong>Culto em família</strong><small>19h30 · Templo</small></span>
+                      </div>
+                      <div>
+                        <b>20<small>SET</small></b
+                        ><span
+                          ><strong>Escola bíblica</strong><small>09h · Sala principal</small></span
+                        >
+                      </div>
+                      <p>
+                        Tudo no seu tempo.
+                        <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                          <path d="M5 12h14M13 6l6 6-6 6" />
+                        </svg>
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div class="phone-mockup">
-              <div class="phone-speaker"></div>
-              <div class="phone-screen">
-                <div class="app-head">
-                  <div><small>Olá,</small><strong>Maria 👋</strong></div>
-                  <span>M</span>
-                </div>
-                <div class="app-hero-card">
-                  <div class="app-brand-line"><img src="assets/simplechurch-icon-dark-128.png" alt="" width="18" height="18" loading="lazy" decoding="async" /><small>MINHA IGREJA</small></div>
-                  <strong>Bem-vindo ao SimpleChurch</strong>
-                  <span>Acompanhe sua vida na igreja</span>
-                </div>
-                <small class="app-section-title">ACESSO RÁPIDO</small>
-                <div class="app-grid">
-                  <div><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v3M17 4v3M5 8h14" /><rect x="5" y="6" width="14" height="13" rx="2" /></svg></i><span>Eventos</span></div>
-                  <div><i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="2" /><circle cx="9" cy="11" r="2" /><path d="M7 15h8M14 10h3" /></svg></i><span>Cartão</span></div>
-                  <div><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h10a4 4 0 0 1 4 4V19H8a3 3 0 0 1-3-3V5.5Z" /><path d="M8 9h7M8 12h7" /></svg></i><span>EBD</span></div>
-                  <div><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17h14M7 14l4-4 3 3 4-5" /><path d="M15 8h3v3" /></svg></i><span>Dízimos</span></div>
-                </div>
-                <div class="app-next"><i>18</i><div><small>PRÓXIMO EVENTO</small><strong>Evento da igreja</strong></div></div>
-                <div class="app-nav"><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 11.5 7-5.5 7 5.5" /><path d="M8 10v8h8v-8" /></svg><span>Início</span></b><b><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="6" width="14" height="13" rx="2" /><path d="M8 4v4M16 4v4" /></svg><span>Eventos</span></b><b><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="2" /><circle cx="9" cy="11" r="2" /></svg><span>Cartão</span></b><b><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3" /><path d="M6 19a6 6 0 0 1 12 0" /></svg><span>Perfil</span></b></div>
+            <div class="floating-card">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                <path d="m5 12 4 4L19 6" />
+              </svg>
+              <div>
+                <strong>Organização que aproxima.</strong
+                ><span>Da secretaria à vida de cada membro.</span>
               </div>
             </div>
-            <div class="floating-note note-security"><i>✓</i><span><small>Acesso protegido</small><strong>Por perfil e congregação</strong></span></div>
+            <div class="visual-caption">
+              <span class="caption-line"></span> Gestão conectada, do administrativo ao membro.
+            </div>
+            <small class="illustration-note">Demonstração visual do painel · Dados fictícios</small>
           </div>
+        </div>
+        <div class="container hero-bottom">
+          <span>FEITO PARA A VIDA REAL DA IGREJA</span>
+          <div>
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+              <path d="M12 2v6M9 5h6M3 13l9-6 9 6v8H3ZM9 21v-6h6v6" />
+            </svg>
+            Matriz e congregações
+          </div>
+          <div>
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+              <path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z" />
+              <path d="m8 12 3 3 5-6" />
+            </svg>
+            Acesso por perfil
+          </div>
+          <div>
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+              <rect x="6" y="2" width="12" height="20" rx="3" />
+              <path d="M10 18h4" />
+            </svg>
+            PWA e Android
+          </div>
+          <a href="#recursos" aria-label="Conhecer os recursos">↓</a>
         </div>
       </section>
 
-      <section class="trust-strip" aria-label="Resumo de confiança da plataforma">
-        <div class="container trust-inner">
-          <p>Uma operação mais simples, do administrativo ao membro</p>
-          <div class="trust-items">
-            <span><i aria-hidden="true"></i> Dados no contexto certo</span>
-            <span><i aria-hidden="true"></i> Acesso definido por perfil</span>
-            <span><i aria-hidden="true"></i> Experiência para equipe e membro</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="section problem-section" id="desafios">
-        <div class="container problem-summary">
-          <div class="section-heading reveal">
-            <span class="section-kicker">UMA OPERAÇÃO CONECTADA</span>
-            <h2>Menos controles paralelos. <em>Mais clareza para decidir e cuidar.</em></h2>
-            <p>O SimpleChurch reúne as rotinas que costumam ficar espalhadas e mantém cada informação no contexto certo.</p>
-          </div>
-          <ul class="friction-list" aria-label="Desafios que o SimpleChurch ajuda a organizar">
-            <li class="reveal"><strong>Dados centralizados</strong><span>Pessoas, financeiro, EBD e eventos na mesma operação.</span></li>
-            <li class="reveal" data-delay="70"><strong>Estrutura respeitada</strong><span>Matriz, congregações e acessos organizados por contexto.</span></li>
-            <li class="reveal" data-delay="140"><strong>Rotina mais simples</strong><span>Equipe e membros encontram o que precisam com menos etapas.</span></li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="section pillars-section" id="recursos">
+      <section class="section product-proof-section" id="produto">
         <div class="container">
-          <div class="section-heading centered reveal">
-            <span class="section-kicker">A PLATAFORMA EM TRÊS PILARES</span>
-            <h2>Da administração à experiência do membro, <em>tudo trabalha em conjunto.</em></h2>
-            <p>Conheça a estrutura do SimpleChurch e aprofunde os pontos mais importantes para sua igreja.</p>
+          <div class="section-top product-proof-heading">
+            <div>
+              <span class="section-kicker">PRODUTO EM FUNCIONAMENTO</span>
+              <h2>Veja o acesso real.<br /><em>Conheça os fluxos ao vivo.</em></h2>
+            </div>
+            <div class="product-proof-intro">
+              <p>
+                O SimpleChurch tem um ambiente administrativo para a equipe e uma área mobile para
+                os membros. Na demonstração, você navega pelos módulos aplicados à rotina da sua
+                igreja.
+              </p>
+              <a
+                href="#demonstracao"
+                class="text-link"
+                data-commercial-cta
+                data-cta-location="produto"
+                >Agendar demonstração
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M5 12h14M13 6l6 6-6 6" /></svg
+              ></a>
+            </div>
           </div>
-          <div class="pillars-grid">
-            <article class="pillar-card reveal">
-              <span class="pillar-number">01</span>
-              <span class="module-icon teal"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1" /><rect x="14" y="4" width="6" height="6" rx="1" /><rect x="4" y="14" width="6" height="6" rx="1" /><rect x="14" y="14" width="6" height="6" rx="1" /></svg></span>
-              <h3>Gestão administrativa</h3>
-              <p>Organize pessoas, financeiro, EBD, eventos, carteirinhas e configurações em uma rotina única para a equipe.</p>
-              <div class="pillar-highlight"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10h16v10H4zM3 7h18v3H3zM12 7v13M7.5 7C5 7 4.5 3.5 7 3.5c2 0 5 3.5 5 3.5s3-3.5 5-3.5c2.5 0 2 3.5-.5 3.5" /></svg><span><small>DIFERENCIAL DE CUIDADO</small><strong>Mensagens de aniversário</strong></span></div>
-              <ul><li>Pessoas e visitantes</li><li>Caixa e prestação de contas</li><li>EBD, eventos e carteirinhas</li></ul>
-              <a href="#permissoes" data-resource-link data-resource="gestao_administrativa">Conhecer gestão e acessos <span>→</span></a>
+          <div class="product-proof-grid">
+            <article class="product-screen product-screen-admin">
+              <div class="product-screen-meta">
+                <span><i></i> TELA REAL</span><strong>Ambiente administrativo</strong>
+              </div>
+              <div class="product-screen-frame">
+                <img
+                  src="/assets/product-admin-login.png"
+                  alt="Tela real de acesso ao ambiente administrativo do SimpleChurch"
+                  width="1440"
+                  height="1000"
+                  decoding="async"
+                />
+              </div>
+              <div class="product-screen-copy">
+                <h3>Gestão da equipe no navegador</h3>
+                <p>
+                  Acesso ao painel para organizar pessoas, financeiro, EBD, eventos, carteirinhas e
+                  congregações conforme as permissões de cada perfil.
+                </p>
+              </div>
             </article>
-            <article class="pillar-card featured reveal" data-delay="70">
-              <span class="pillar-number">02</span>
-              <span class="module-icon blue"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m4 11.5 8-6.5 8 6.5" /><path d="M7 10v9h10v-9M10 19v-5h4v5" /></svg></span>
-              <h3>Matriz e congregações</h3>
-              <p>Mantenha usuários e registros no contexto correto, sem perder a visão da estrutura completa da igreja.</p>
-              <ul><li>Organização por congregação</li><li>Registros no escopo certo</li><li>Perfis de acesso coerentes</li></ul>
-              <a href="#congregacoes" data-resource-link data-resource="matriz_congregacoes">Ver como a estrutura funciona <span>→</span></a>
-            </article>
-            <article class="pillar-card reveal" data-delay="140">
-              <span class="pillar-number">03</span>
-              <span class="module-icon gold"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5" /><path d="M10 18h4" /></svg></span>
-              <h3>Experiência do membro</h3>
-              <p>Leve informações e serviços da igreja ao celular com uma experiência alinhada à identidade da comunidade.</p>
-              <ul><li>Acesso por PWA e Android</li><li>Eventos, cartão, EBD e perfil</li><li>Cores e logo da igreja</li></ul>
-              <a href="#app" data-resource-link data-resource="experiencia_membro">Conhecer o App do membro <span>→</span></a>
+            <article class="product-screen product-screen-member">
+              <div class="product-screen-meta">
+                <span><i></i> TELA REAL</span><strong>Área do membro</strong>
+              </div>
+              <div class="product-screen-frame product-screen-phone">
+                <img
+                  src="/assets/product-member-login.png"
+                  alt="Tela real de acesso à área do membro do SimpleChurch"
+                  width="390"
+                  height="844"
+                  decoding="async"
+                />
+              </div>
+              <div class="product-screen-copy">
+                <h3>A igreja acessível pelo celular</h3>
+                <p>
+                  O membro entra com CPF ou e-mail para acessar eventos, EBD e carteirinha no
+                  ambiente da própria igreja.
+                </p>
+              </div>
             </article>
           </div>
+          <p class="product-proof-note">
+            Capturas da aplicação pública do SimpleChurch. As áreas internas exigem acesso e são
+            apresentadas ao vivo na demonstração.
+          </p>
         </div>
       </section>
+
+      <section class="section resources-section" id="recursos">
+        <div class="container">
+          <div class="section-top">
+            <div>
+              <span class="section-kicker">TUDO CONECTADO</span>
+              <h2>A rotina muda quando<br /><em>tudo conversa.</em></h2>
+            </div>
+            <p>
+              Chega de procurar informações em lugares diferentes. Dê à sua equipe uma visão clara
+              para organizar, acompanhar e cuidar.
+            </p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card people-card">
+              <span class="feature-number">01 / PESSOAS</span>
+              <div class="feature-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <circle cx="9" cy="8" r="3" />
+                  <path d="M3 20v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 4v2" />
+                </svg>
+              </div>
+              <h3>Cada nome,<br />uma história.</h3>
+              <p>
+                Membros, visitantes e famílias organizados. Informações acessíveis para um cuidado
+                mais próximo.
+              </p>
+              <div class="people-preview">
+                <div>
+                  <i>MA</i
+                  ><span
+                    ><strong>Maria Alves</strong><small>Membro · Congregação Central</small></span
+                  ><b>Ativo</b>
+                </div>
+                <div>
+                  <i>JS</i
+                  ><span><strong>João Santos</strong><small>Membro · Congregação Norte</small></span
+                  ><b>Ativo</b>
+                </div>
+                <p>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                    <path d="M20 5c-3-3-7-1-8 1-1-2-5-4-8-1-4 4 1 9 8 15 7-6 12-11 8-15Z" />
+                  </svg>
+                  Lembre datas. Fortaleça vínculos.
+                </p>
+              </div>
+              <a
+                class="feature-link"
+                href="#demonstracao"
+                data-resource-link
+                data-resource="pessoas"
+                >Ver este módulo na demonstração
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M6 18 18 6M6 6h12v12" /></svg
+              ></a>
+            </article>
+            <article class="feature-card finance-card">
+              <span class="feature-number">02 / FINANCEIRO</span>
+              <div class="feature-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M4 4v16h16M8 15l4-5 4 2 4-7" />
+                </svg>
+              </div>
+              <h3>Clareza para gerir.<br />Confiança para seguir.</h3>
+              <p>
+                Entradas, saídas, caixa e balancetes. Uma visão organizada para a prestação de
+                contas da igreja.
+              </p>
+              <div class="finance-preview">
+                <span>ORGANIZAÇÃO EM CADA LANÇAMENTO</span>
+                <div>
+                  <b
+                    ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                      <path d="M5 12h14M13 6l6 6-6 6" /></svg></b
+                  ><strong>Entradas e contribuições</strong><i>↗</i>
+                </div>
+                <div>
+                  <b
+                    ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                      <path d="M5 12h14M13 6l6 6-6 6" /></svg></b
+                  ><strong>Saídas e despesas</strong><i>↙</i>
+                </div>
+                <div>
+                  <b
+                    ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                      <path d="M4 4v16h16M8 15l4-5 4 2 4-7" /></svg></b
+                  ><strong>Relatórios e balancetes</strong><i>↗</i>
+                </div>
+              </div>
+              <a
+                class="feature-link"
+                href="#demonstracao"
+                data-resource-link
+                data-resource="financeiro"
+                >Ver este módulo na demonstração
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M6 18 18 6M6 6h12v12" /></svg
+              ></a>
+            </article>
+            <article class="feature-card compact-card">
+              <span class="feature-number">03 / ESCOLA BÍBLICA</span>
+              <div class="feature-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M12 6v15M12 6C8 3 4 4 3 5v14c3-1 6-1 9 2 3-3 6-3 9-2V5c-3-1-6-1-9 1Z" />
+                </svg>
+              </div>
+              <h3>Ensinar. Acompanhar. Evoluir.</h3>
+              <p>Classes, alunos e frequência da EBD em uma rotina organizada.</p>
+              <a class="feature-link" href="#demonstracao" data-resource-link data-resource="ebd"
+                >Ver este módulo na demonstração
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M6 18 18 6M6 6h12v12" /></svg
+              ></a>
+            </article>
+            <article class="feature-card compact-card">
+              <span class="feature-number">04 / EVENTOS</span>
+              <div class="feature-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <rect x="3" y="5" width="18" height="16" rx="3" />
+                  <path d="M7 3v4M17 3v4M3 11h18M8 15h2M14 15h2" />
+                </svg>
+              </div>
+              <h3>Encontros que conectam.</h3>
+              <p>Agenda e cadastros para manter a comunidade por dentro de cada encontro.</p>
+              <a
+                class="feature-link"
+                href="#demonstracao"
+                data-resource-link
+                data-resource="eventos"
+                >Ver este módulo na demonstração
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M6 18 18 6M6 6h12v12" /></svg
+              ></a>
+            </article>
+            <article class="feature-card compact-card">
+              <span class="feature-number">05 / CARTEIRINHAS</span>
+              <div class="feature-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <rect x="3" y="5" width="18" height="15" rx="3" />
+                  <circle cx="8" cy="11" r="2" />
+                  <path d="M5 17a3 3 0 0 1 6 0M14 10h4M14 14h4" />
+                </svg>
+              </div>
+              <h3>Pertencimento em cada detalhe.</h3>
+              <p>Configure, emita e imprima carteirinhas com a identidade da igreja.</p>
+              <a
+                class="feature-link"
+                href="#demonstracao"
+                data-resource-link
+                data-resource="carteirinhas"
+                >Ver este módulo na demonstração
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M6 18 18 6M6 6h12v12" /></svg
+              ></a>
+            </article>
+          </div>
+          <p class="section-footnote">
+            Uma plataforma. Diferentes rotinas. O mesmo propósito.
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+              <path d="M12 2v6M9 5h6M3 13l9-6 9 6v8H3ZM9 21v-6h6v6" />
+            </svg>
+          </p>
+        </div>
+      </section>
+
       <section class="section structure-section" id="congregacoes">
         <div class="container structure-grid">
-          <div class="structure-copy reveal">
-            <span class="section-kicker light">MATRIZ E CONGREGAÇÕES</span>
-            <h2>Organização que respeita a <em>estrutura da sua igreja</em></h2>
-            <p>Configure os dados da igreja e suas congregações para manter usuários e registros no contexto correto de operação.</p>
-            <div class="structure-list">
-              <div><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5M7 10v9h10v-9M10 19v-5h4v5" /></svg></i><span><strong>Igreja e congregações</strong><small>Organize a estrutura cadastrada no sistema.</small></span></div>
-              <div><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 19v-1.5A3.5 3.5 0 0 0 12.5 14h-5A3.5 3.5 0 0 0 4 17.5V19M10 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6M19.5 19v-1.2a3 3 0 0 0-2.3-2.9M15.5 5.2a3 3 0 0 1 0 5.6" /></svg></i><span><strong>Usuários no contexto certo</strong><small>O perfil pode exigir a seleção da congregação.</small></span></div>
-              <div><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5v14M17 5v14M4 9h16M4 15h16" /></svg></i><span><strong>Registros com escopo</strong><small>Pessoas e operações respeitam a congregação do registro.</small></span></div>
-            </div>
-          </div>
-          <div class="org-visual reveal" data-delay="120" aria-label="Diagrama de organização entre igreja e congregações">
-            <div class="org-main">
-              <span class="org-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2L12 3Z" /></svg></span><div><small>IGREJA</small><strong>Comunidade Central</strong><em>Administração</em></div><b>Ativa</b>
-            </div>
-            <div class="org-connector"><i></i><i></i><i></i></div>
-            <div class="org-branches">
-              <div><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 11.5 7-5.5 7 5.5" /><path d="M8 10v8h8v-8M10.5 18v-4h3v4" /></svg></span><small>CONGREGAÇÃO</small><strong>Central</strong><em>Usuários e registros</em></div>
-              <div><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 11.5 7-5.5 7 5.5" /><path d="M8 10v8h8v-8M10.5 18v-4h3v4" /></svg></span><small>CONGREGAÇÃO</small><strong>Zona Norte</strong><em>Usuários e registros</em></div>
-              <div><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 11.5 7-5.5 7 5.5" /><path d="M8 10v8h8v-8M10.5 18v-4h3v4" /></svg></span><small>CONGREGAÇÃO</small><strong>Zona Sul</strong><em>Usuários e registros</em></div>
-            </div>
-            <p><i>✓</i> Cada registro no contexto da congregação</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section permissions-section" id="permissoes">
-        <div class="container permissions-grid">
-          <div class="permission-panel reveal" aria-label="Exemplo visual de configuração de perfil">
-            <div class="permission-head"><div><small>PERFIL DE ACESSO</small><strong>Secretaria</strong></div><span>Ativo</span></div>
-            <div class="permission-context"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5M7 10v9h10v-9M10 19v-5h4v5" /></svg></i><div><small>ESCOPO</small><strong>Congregação selecionada</strong></div><span class="permission-chevron"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4" /></svg></span></div>
-            <small class="permission-title">MÓDULOS LIBERADOS</small>
-            <div class="permission-row"><i class="teal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 19v-1.5A3.5 3.5 0 0 0 12.5 14h-5A3.5 3.5 0 0 0 4 17.5V19M10 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6M19.5 19v-1.2a3 3 0 0 0-2.3-2.9M15.5 5.2a3 3 0 0 1 0 5.6" /></svg></i><span><strong>Pessoas</strong><small>Cadastro e consulta</small></span><b class="toggle on"></b></div>
-            <div class="permission-row"><i class="purple"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v3M17 4v3M5 8h14M6 6h12a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1ZM9 12h2M13 12h2M9 15h2" /></svg></i><span><strong>Eventos</strong><small>Agenda e cadastros</small></span><b class="toggle on"></b></div>
-            <div class="permission-row"><i class="gold"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h10a4 4 0 0 1 4 4V19H8a3 3 0 0 1-3-3V5.5ZM8 9h7M8 12h7M8 15h4" /></svg></i><span><strong>EBD</strong><small>Sem acesso</small></span><b class="toggle"></b></div>
-            <div class="permission-row"><i class="blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17h16M7 14l4-4 3 3 5-6M15 7h4v4" /></svg></i><span><strong>Financeiro</strong><small>Sem acesso</small></span><b class="toggle"></b></div>
-            <div class="permission-foot"><i>✓</i> Alterações impactam o acesso às telas</div>
-          </div>
-          <div class="permissions-copy reveal" data-delay="120">
-            <span class="section-kicker">PERMISSÕES E PERFIS</span>
-            <h2>Cada pessoa acessa <em>somente o que precisa</em></h2>
-            <p>Configure perfis para que usuários administrativos encontrem os módulos compatíveis com sua função e o contexto da congregação.</p>
-            <ul>
-              <li><i>✓</i><span><strong>Perfis de permissão</strong><small>Defina quais funções podem acessar cada área.</small></span></li>
-              <li><i>✓</i><span><strong>Contexto de congregação</strong><small>Mantenha a operação no escopo correto.</small></span></li>
-              <li><i>✓</i><span><strong>Acesso coerente</strong><small>Funções não liberadas permanecem protegidas.</small></span></li>
+          <div>
+            <span class="section-kicker">CRESCER COM ORGANIZAÇÃO</span>
+            <h2>Uma igreja.<br />Muitas comunidades.<br /><em>Tudo no seu lugar.</em></h2>
+            <p>
+              Da matriz a cada congregação, mantenha a gestão conectada sem perder o contexto de
+              cada unidade.
+            </p>
+            <ul class="benefit-list">
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                Pessoas e registros por congregação
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                Visão organizada da estrutura da igreja
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                Equipes com acesso conforme sua função
+              </li>
             </ul>
+            <a
+              href="#demonstracao"
+              class="text-link"
+              data-commercial-cta
+              data-cta-location="congregacoes"
+              >Ver como funciona para minha igreja
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                <path d="M5 12h14M13 6l6 6-6 6" /></svg
+            ></a>
+          </div>
+          <div class="organization-visual">
+            <div class="org-label">CONECTADAS PELO MESMO PROPÓSITO</div>
+            <div class="org-main">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                <path d="M12 2v6M9 5h6M3 13l9-6 9 6v8H3ZM9 21v-6h6v6" /></svg
+              ><span><small>MATRIZ</small><strong>Comunidade Central</strong></span
+              ><i>●</i>
+            </div>
+            <div class="org-lines"></div>
+            <div class="org-branches">
+              <div>
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M12 2v6M9 5h6M3 13l9-6 9 6v8H3ZM9 21v-6h6v6" /></svg
+                ><strong>Central</strong><small>Congregação</small>
+              </div>
+              <div>
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M12 2v6M9 5h6M3 13l9-6 9 6v8H3ZM9 21v-6h6v6" /></svg
+                ><strong>Zona Norte</strong><small>Congregação</small>
+              </div>
+              <div>
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M12 2v6M9 5h6M3 13l9-6 9 6v8H3ZM9 21v-6h6v6" /></svg
+                ><strong>Zona Sul</strong><small>Congregação</small>
+              </div>
+            </div>
+            <div class="access-card" id="permissoes">
+              <span class="access-icon"
+                ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z" />
+                  <path d="m8 12 3 3 5-6" /></svg
+              ></span>
+              <div>
+                <strong>Cada pessoa, o acesso certo.</strong>
+                <p>Perfis definidos para a rotina da equipe.</p>
+              </div>
+              <span class="access-check"
+                ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="m5 12 4 4L19 6" /></svg
+              ></span>
+            </div>
+            <small class="illustration-note">Estrutura ilustrativa de congregações</small>
           </div>
         </div>
       </section>
 
       <section class="section app-section" id="app">
-        <div class="app-orb" aria-hidden="true"></div>
         <div class="container app-layout">
-          <div class="app-copy reveal">
-            <span class="section-kicker light">APP DO MEMBRO</span>
-            <h2>Sua igreja presente na <em>rotina dos membros</em></h2>
-            <p>Uma experiência mobile com a identidade visual da igreja, disponível como PWA no navegador e também no Android.</p>
-            <div class="app-badges"><span><i>◫</i><b><small>INSTALÁVEL COMO</small>PWA</b></span><span><i>◉</i><b><small>DISPONÍVEL NO</small>Android</b></span></div>
-            <ul>
-              <li><i>✓</i> Acesso com CPF e senha</li>
-              <li><i>✓</i> Cores e logo configurados pela igreja</li>
-              <li><i>✓</i> Início, Eventos, Cartão, EBD e Perfil</li>
-              <li><i>✓</i> Dízimos e ofertas acessíveis pelo Início</li>
-            </ul>
-            <a class="button button-primary" href="#demonstracao" data-commercial-cta data-cta-location="app">Solicitar demonstração</a>
-          </div>
-          <div class="app-showcase reveal" data-delay="120" aria-label="Telas do App do membro">
-            <div class="app-phone side-phone">
-              <div class="mini-screen">
-                <div class="mini-status">9:41 <span>● ◔</span></div>
-                <div class="event-screen-head"><b>‹</b><strong>Eventos</strong><i>⌕</i></div>
-                <div class="calendar"><small>JULHO 2026</small><div><b>D</b><b>S</b><b>T</b><b>Q</b><b>Q</b><b>S</b><b>S</b><span>12</span><span>13</span><span>14</span><span>15</span><span class="chosen">16</span><span>17</span><span>18</span></div></div>
-                <small class="day-label">PRÓXIMOS EVENTOS</small>
-                <div class="event-card"><i>18<small>JUL</small></i><span><strong>Evento da igreja</strong><small>19:30 · Templo</small></span></div>
-                <div class="event-card"><i>21<small>JUL</small></i><span><strong>Escola Bíblica</strong><small>09:00 · Sala principal</small></span></div>
+          <div class="app-visual">
+            <div class="app-ring"></div>
+            <span class="app-floating app-floating-one"
+              ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                <rect x="3" y="5" width="18" height="16" rx="3" />
+                <path d="M7 3v4M17 3v4M3 11h18M8 15h2M14 15h2" />
+              </svg>
+              A vida da igreja, por perto.</span
+            >
+            <div class="member-phone">
+              <div class="phone-camera"></div>
+              <div class="phone-status">9:41 <span>● ▰</span></div>
+              <div class="member-greeting">
+                <span>Que bom ter você aqui.<strong>Olá, Maria!</strong></span
+                ><i>MA</i>
               </div>
-            </div>
-            <div class="app-phone main-phone">
-              <div class="mini-screen">
-                <div class="mini-status">9:41 <span>● ◔</span></div>
-                <div class="member-head"><div><small>Olá,</small><strong>Maria 👋</strong></div><i>M</i></div>
-                <div class="church-card"><small>MINHA IGREJA</small><strong>Comunidade Central</strong><span>Uma família para pertencer</span><i>✦</i></div>
-                <small class="day-label">ACESSO RÁPIDO</small>
-                <div class="quick-grid"><span><i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="6" width="14" height="13" rx="2" /><path d="M8 4v4M16 4v4" /></svg></i>Eventos</span><span><i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="2" /><circle cx="9" cy="11" r="2" /></svg></i>Cartão</span><span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h10a4 4 0 0 1 4 4V19H8a3 3 0 0 1-3-3V5.5Z" /><path d="M8 9h7M8 12h7" /></svg></i>EBD</span><span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17h14M7 14l4-4 3 3 4-5" /><path d="M15 8h3v3" /></svg></i>Dízimos</span></div>
-                <div class="next-card"><small>PRÓXIMO EVENTO</small><strong>Evento da igreja</strong><span>18 de julho · 19:30</span></div>
-                <div class="mini-bottom"><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 11.5 7-5.5 7 5.5" /><path d="M8 10v8h8v-8" /></svg><small>Início</small></b><b><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="6" width="14" height="13" rx="2" /><path d="M8 4v4M16 4v4" /></svg><small>Eventos</small></b><b><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="2" /><circle cx="9" cy="11" r="2" /></svg><small>Cartão</small></b><b><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3" /><path d="M6 19a6 6 0 0 1 12 0" /></svg><small>Perfil</small></b></div>
+              <div class="member-cover">
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="M12 2v6M9 5h6M3 13l9-6 9 6v8H3ZM9 21v-6h6v6" /></svg
+                ><small>COMUNIDADE CENTRAL</small><strong>Uma família.<br />Um só propósito.</strong
+                ><span>Seu lugar é aqui.</span>
               </div>
-            </div>
-            <div class="app-phone side-phone right-phone">
-              <div class="mini-screen card-screen">
-                <div class="mini-status">9:41 <span>● ◔</span></div>
-                <div class="event-screen-head"><b>‹</b><strong>Meu cartão</strong><i></i></div>
-                <div class="member-card">
-                  <div><i>✦</i><span><small>MEMBRO</small><strong>Comunidade Central</strong></span></div>
-                  <b class="photo">MA</b>
-                  <h4>Maria Alves</h4>
-                  <p>Membro desde 2018</p>
-                  <span class="card-number">Nº 00124</span>
-                  <b class="fake-qr">▦</b>
+              <div class="member-shortcuts">
+                <div>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                    <rect x="3" y="5" width="18" height="16" rx="3" />
+                    <path d="M7 3v4M17 3v4M3 11h18M8 15h2M14 15h2" /></svg
+                  ><span>Agenda</span>
                 </div>
-                <p class="card-help">Apresente sua carteirinha quando solicitado.</p>
+                <div>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                    <rect x="3" y="5" width="18" height="15" rx="3" />
+                    <circle cx="8" cy="11" r="2" />
+                    <path d="M5 17a3 3 0 0 1 6 0M14 10h4M14 14h4" /></svg
+                  ><span>Carteirinha</span>
+                </div>
+                <div>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                    <path
+                      d="M12 6v15M12 6C8 3 4 4 3 5v14c3-1 6-1 9 2 3-3 6-3 9-2V5c-3-1-6-1-9 1Z"
+                    /></svg
+                  ><span>EBD</span>
+                </div>
+                <div>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                    <path d="M20 5c-3-3-7-1-8 1-1-2-5-4-8-1-4 4 1 9 8 15 7-6 12-11 8-15Z" /></svg
+                  ><span>Contribuir</span>
+                </div>
+              </div>
+              <div class="member-agenda">
+                <small>NOSSO PRÓXIMO ENCONTRO</small>
+                <div>
+                  <b>DOM<span>18</span></b>
+                  <p><strong>Culto em família</strong><span>19h30 · Templo central</span></p>
+                </div>
+              </div>
+              <div class="phone-nav">
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="m3 11 9-8 9 8M5 10v11h14V10M9 21v-7h6v7" /></svg
+                ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <rect x="3" y="5" width="18" height="16" rx="3" />
+                  <path d="M7 3v4M17 3v4M3 11h18M8 15h2M14 15h2" /></svg
+                ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <rect x="3" y="5" width="18" height="15" rx="3" />
+                  <circle cx="8" cy="11" r="2" />
+                  <path d="M5 17a3 3 0 0 1 6 0M14 10h4M14 14h4" /></svg
+                ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <circle cx="9" cy="8" r="3" />
+                  <path d="M3 20v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 4v2" />
+                </svg>
               </div>
             </div>
+            <span class="app-floating app-floating-two"
+              ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                <path d="M20 5c-3-3-7-1-8 1-1-2-5-4-8-1-4 4 1 9 8 15 7-6 12-11 8-15Z" />
+              </svg>
+              Mais conexão. Mais comunidade.</span
+            ><small class="illustration-note">Prévia ilustrativa do App do membro</small>
+          </div>
+          <div class="app-copy">
+            <span class="section-kicker">ALÉM DAS PORTAS DA IGREJA</span>
+            <h2>A comunidade<br />continua.<br /><em>Na palma da mão.</em></h2>
+            <p>
+              Um espaço para o membro acompanhar a vida da igreja, com as cores e a identidade da
+              sua comunidade.
+            </p>
+            <ul class="benefit-list">
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                Eventos, EBD e carteirinha digital
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                Acesso a dízimos e ofertas
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                Perfil e acesso com CPF e senha
+              </li>
+            </ul>
+            <div class="app-platforms">
+              <span
+                ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <rect x="6" y="2" width="12" height="20" rx="3" />
+                  <path d="M10 18h4" />
+                </svg>
+                Android</span
+              ><span
+                ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="m3 11 9-8 9 8M5 10v11h14V10M9 21v-7h6v7" />
+                </svg>
+                PWA · direto no navegador</span
+              >
+            </div>
+            <a
+              href="#demonstracao"
+              class="button button-primary"
+              data-commercial-cta
+              data-cta-location="app"
+              >Ver o app na demonstração<svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                <path d="M6 18 18 6M6 6h12v12" /></svg
+            ></a>
           </div>
         </div>
       </section>
 
-      <section class="section proof-section" aria-label="Sinais de confiança para solicitar uma demonstração">
-        <div class="container proof-grid">
-          <div class="proof-copy reveal">
-            <span class="section-kicker">DEMONSTRAÇÃO COM CONTEXTO</span>
-            <h2>Não é uma visita ao sistema. É uma conversa sobre a <em>sua operação.</em></h2>
-            <p>Antes de apresentar recursos, entendemos a estrutura da igreja, os perfis de acesso e os módulos prioritários da sua equipe.</p>
-            <ul class="proof-trust" aria-label="Implantação e suporte">
-              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6" /></svg><span><strong>Implantação orientada</strong><small>Prioridades, estrutura e acessos alinhados antes da ativação.</small></span></li>
-              <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0" /><path d="M4 13v4a2 2 0 0 0 2 2h1v-7H4ZM20 13v4a2 2 0 0 1-2 2h-1v-7h3Z" /></svg><span><strong>Suporte com contexto</strong><small>Canais e próximos passos apresentados com clareza para a equipe.</small></span></li>
-            </ul>
-            <a class="button button-light" href="#demonstracao" data-commercial-cta data-cta-location="demonstracao_contexto">Solicitar demonstração</a>
+      <section class="section journey-section" id="como-funciona">
+        <div class="container">
+          <div class="section-top">
+            <div>
+              <span class="section-kicker">UM PRÓXIMO PASSO, COM CLAREZA</span>
+              <h2>Veja antes de decidir.<br /><em>Sem pressão.</em></h2>
+            </div>
+            <p>
+              A demonstração reduz a incerteza: você vê os fluxos relevantes, esclarece dúvidas e só
+              então avalia se o SimpleChurch faz sentido para sua igreja.
+            </p>
           </div>
-          <div class="proof-cards">
-            <article class="reveal"><strong>01</strong><h3>Entendemos seu cenário</h3><p>Matriz, congregações, usuários e registros são avaliados no contexto real de operação.</p></article>
-            <article class="reveal" data-delay="70"><strong>02</strong><h3>Mostramos os fluxos certos</h3><p>Você vê pessoas, financeiro, EBD, eventos, carteirinhas e app de forma conectada.</p></article>
-            <article class="reveal" data-delay="140"><strong>03</strong><h3>Definimos próximos passos</h3><p>Sua equipe sai com clareza sobre ativação, prioridades e o que precisa ser configurado.</p></article>
+          <div class="journey-grid">
+            <article>
+              <span>01</span>
+              <h3>Começamos pela sua realidade.</h3>
+              <p>
+                Conversamos sobre a estrutura da igreja, as rotinas da equipe e seus principais
+                desafios.
+              </p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3>Mostramos o produto em uso.</h3>
+              <p>
+                Conheça os módulos e os fluxos que fazem sentido para a sua operação, em uma
+                demonstração guiada.
+              </p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3>Você decide com clareza.</h3>
+              <p>
+                Respondemos às dúvidas e explicamos os próximos passos, sem compromisso de
+                contratação.
+              </p>
+            </article>
           </div>
         </div>
       </section>
+
       <section class="section faq-section" id="faq">
         <div class="container faq-grid">
-          <div class="faq-intro reveal"><span class="section-kicker">DÚVIDAS FREQUENTES</span><h2>Perguntas sobre o <em>SimpleChurch</em></h2><p>Conheça os pontos principais da plataforma. Para ver os fluxos na prática, solicite uma demonstração.</p><a class="button button-primary" href="#demonstracao" data-commercial-cta data-cta-location="faq">Solicitar demonstração</a></div>
+          <div class="faq-intro">
+            <span class="section-kicker">ANTES DE DAR O PRÓXIMO PASSO</span>
+            <h2>Vamos deixar<br /><em>tudo claro.</em></h2>
+            <p>Ainda tem alguma dúvida?<br />Nossa equipe conversa com você.</p>
+            <a
+              href="https://wa.me/5521974340508"
+              class="text-link"
+              data-commercial-cta
+              data-cta-location="footer_whatsapp"
+              >Falar com a equipe
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                <path d="M5 12h14M13 6l6 6-6 6" /></svg
+            ></a>
+          </div>
           <div class="accordion" data-accordion>
-            <article class="faq-item reveal">
-              <h3><button type="button" aria-expanded="true" aria-controls="faq-1" id="faq-button-1">Como funciona para matriz e congregações?<span></span></button></h3>
-              <div class="faq-answer" id="faq-1" role="region" aria-labelledby="faq-button-1"><p>O sistema permite configurar os dados da igreja e de suas congregações. Usuários e registros operam conforme o contexto e o escopo definidos para a congregação.</p></div>
+            <article class="faq-item">
+              <h3>
+                <button type="button" aria-expanded="true" aria-controls="faq-0" id="faq-button-0">
+                  Serve para uma igreja com várias congregações?<span aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div class="faq-answer" id="faq-0" role="region" aria-labelledby="faq-button-0">
+                <p>
+                  Sim. O SimpleChurch organiza matriz e congregações, com usuários, registros e
+                  rotinas no contexto de cada unidade. Na demonstração, mostramos como isso se
+                  aplica à sua estrutura.
+                </p>
+              </div>
             </article>
-            <article class="faq-item reveal">
-              <h3><button type="button" aria-expanded="false" aria-controls="faq-2" id="faq-button-2">É possível controlar o que cada usuário acessa?<span></span></button></h3>
-              <div class="faq-answer" id="faq-2" role="region" aria-labelledby="faq-button-2" hidden><p>Sim. Perfis de permissão determinam quais módulos e funções ficam disponíveis. Alterações de permissão impactam o acesso às telas.</p></div>
+            <article class="faq-item">
+              <h3>
+                <button type="button" aria-expanded="false" aria-controls="faq-1" id="faq-button-1">
+                  Consigo definir o que cada pessoa pode acessar?<span aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div
+                class="faq-answer"
+                id="faq-1"
+                role="region"
+                aria-labelledby="faq-button-1"
+                hidden
+              >
+                <p>
+                  Sim. Os perfis de permissão definem os módulos e funções disponíveis para cada
+                  usuário administrativo, respeitando sua função e o contexto da congregação.
+                </p>
+              </div>
             </article>
-            <article class="faq-item reveal">
-              <h3><button type="button" aria-expanded="false" aria-controls="faq-3" id="faq-button-3">Como o membro acessa o aplicativo?<span></span></button></h3>
-              <div class="faq-answer" id="faq-3" role="region" aria-labelledby="faq-button-3" hidden><p>Após a ativação da conta, membros ativos entram com CPF e senha. O app pode ser usado como PWA no navegador ou pelo aplicativo Android.</p></div>
+            <article class="faq-item">
+              <h3>
+                <button type="button" aria-expanded="false" aria-controls="faq-2" id="faq-button-2">
+                  O que o financeiro permite acompanhar?<span aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div
+                class="faq-answer"
+                id="faq-2"
+                role="region"
+                aria-labelledby="faq-button-2"
+                hidden
+              >
+                <p>
+                  Caixa, entradas e saídas por categoria, extratos, balancetes e prestação de contas
+                  por congregação ou igreja, de acordo com as permissões de acesso.
+                </p>
+              </div>
             </article>
-            <article class="faq-item reveal">
-              <h3><button type="button" aria-expanded="false" aria-controls="faq-4" id="faq-button-4">O que está disponível no módulo Financeiro?<span></span></button></h3>
-              <div class="faq-answer" id="faq-4" role="region" aria-labelledby="faq-button-4" hidden><p>Controle de caixa, entradas e saídas com categoria, extrato, balancetes e prestação de contas por congregação ou igreja, conforme o acesso permitido.</p></div>
+            <article class="faq-item">
+              <h3>
+                <button type="button" aria-expanded="false" aria-controls="faq-3" id="faq-button-3">
+                  É preciso instalar algum programa?<span aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div
+                class="faq-answer"
+                id="faq-3"
+                role="region"
+                aria-labelledby="faq-button-3"
+                hidden
+              >
+                <p>
+                  A gestão administrativa funciona pelo navegador. O App do membro pode ser usado
+                  como PWA no navegador ou pelo aplicativo Android, conforme a configuração da
+                  igreja.
+                </p>
+              </div>
             </article>
-            <article class="faq-item reveal">
-              <h3><button type="button" aria-expanded="false" aria-controls="faq-5" id="faq-button-5">O SimpleChurch emite carteirinhas?<span></span></button></h3>
-              <div class="faq-answer" id="faq-5" role="region" aria-labelledby="faq-button-5" hidden><p>Sim. A equipe autorizada pode configurar o layout, emitir e imprimir carteirinhas. A validação pública por QR ou código fica disponível quando habilitada.</p></div>
+            <article class="faq-item">
+              <h3>
+                <button type="button" aria-expanded="false" aria-controls="faq-4" id="faq-button-4">
+                  Como funciona a demonstração e a implantação?<span aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div
+                class="faq-answer"
+                id="faq-4"
+                role="region"
+                aria-labelledby="faq-button-4"
+                hidden
+              >
+                <p>
+                  Primeiro, entendemos a rotina e as prioridades da sua igreja. Depois, apresentamos
+                  os módulos relevantes e alinhamos os próximos passos de configuração e ativação. A
+                  demonstração é sem compromisso.
+                </p>
+              </div>
             </article>
-            <article class="faq-item reveal">
-              <h3><button type="button" aria-expanded="false" aria-controls="faq-6" id="faq-button-6">Como funciona a implantação?<span></span></button></h3>
-              <div class="faq-answer" id="faq-6" role="region" aria-labelledby="faq-button-6" hidden><p>A demonstração ajuda a mapear os módulos prioritários, os perfis de acesso e a organização por matriz e congregações antes da ativação.</p></div>
+            <article class="faq-item">
+              <h3>
+                <button type="button" aria-expanded="false" aria-controls="faq-5" id="faq-button-5">
+                  Quanto custa o SimpleChurch?<span aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div
+                class="faq-answer"
+                id="faq-5"
+                role="region"
+                aria-labelledby="faq-button-5"
+                hidden
+              >
+                <p>
+                  Converse com nossa equipe para conhecer a proposta adequada à estrutura da sua
+                  igreja. Na demonstração, você pode esclarecer os módulos, as condições comerciais
+                  e os próximos passos antes de decidir.
+                </p>
+              </div>
             </article>
-            <article class="faq-item reveal">
-              <h3><button type="button" aria-expanded="false" aria-controls="faq-8" id="faq-button-8">Como funcionam as mensagens de aniversário?<span></span></button></h3>
-              <div class="faq-answer" id="faq-8" role="region" aria-labelledby="faq-button-8" hidden><p>As mensagens de aniversário fazem parte dos recursos de gestão de pessoas do SimpleChurch e ajudam a equipe a lembrar datas importantes e manter o cuidado presente na rotina.</p></div>
+            <article class="faq-item">
+              <h3>
+                <button type="button" aria-expanded="false" aria-controls="faq-6" id="faq-button-6">
+                  A demonstração gera algum compromisso de contratação?<span aria-hidden="true"
+                    >+</span
+                  >
+                </button>
+              </h3>
+              <div
+                class="faq-answer"
+                id="faq-6"
+                role="region"
+                aria-labelledby="faq-button-6"
+                hidden
+              >
+                <p>
+                  Não. A demonstração serve para você conhecer o produto, esclarecer dúvidas e
+                  avaliar com calma se ele atende à rotina da sua igreja.
+                </p>
+              </div>
             </article>
-            <article class="faq-item reveal">
-              <h3><button type="button" aria-expanded="false" aria-controls="faq-7" id="faq-button-7">Precisa instalar aplicativo para usar?<span></span></button></h3>
-              <div class="faq-answer" id="faq-7" role="region" aria-labelledby="faq-button-7" hidden><p>O acesso administrativo funciona pelo navegador. Para membros, a experiência pode acontecer como PWA no navegador ou pelo aplicativo Android, conforme a configuração da igreja.</p></div>
+            <article class="faq-item">
+              <h3>
+                <button type="button" aria-expanded="false" aria-controls="faq-7" id="faq-button-7">
+                  A equipe consegue aprender a usar com facilidade?<span aria-hidden="true">+</span>
+                </button>
+              </h3>
+              <div
+                class="faq-answer"
+                id="faq-7"
+                role="region"
+                aria-labelledby="faq-button-7"
+                hidden
+              >
+                <p>
+                  A demonstração apresenta os fluxos passo a passo e permite avaliar como a equipe
+                  usaria o SimpleChurch nas tarefas do dia a dia. Os acessos também podem ser
+                  organizados por perfil, para cada pessoa visualizar apenas o que precisa usar.
+                </p>
+              </div>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="final-cta" id="demonstracao">
-        <div class="cta-orb one" aria-hidden="true"></div><div class="cta-orb two" aria-hidden="true"></div>
-        <div class="container cta-inner reveal">
-          <span class="eyebrow dark-eyebrow">DÊ O PRÓXIMO PASSO</span>
-          <h2>Sua igreja organizada para <em>cuidar melhor das pessoas</em></h2>
-          <p>Conheça os módulos do SimpleChurch e veja como a plataforma pode apoiar a rotina da sua igreja e congregações.</p>
-          <form class="demo-form" data-demo-form novalidate>
-            <p class="demo-form-intro">Preencha os dados abaixo. Leva cerca de 1 minuto.</p>
-            <div class="demo-form-grid">
-              <label for="lead-name">Nome<input id="lead-name" name="name" type="text" autocomplete="name" placeholder="Seu nome" minlength="2" maxlength="120" aria-describedby="name-error" required /><small class="form-field-error" id="name-error"></small></label>
-              <label for="lead-phone">WhatsApp<input id="lead-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" minlength="14" maxlength="15" aria-describedby="phone-error" required /><small class="form-field-error" id="phone-error"></small></label>
-              <label for="lead-church">Igreja<input id="lead-church" name="church" type="text" autocomplete="organization" placeholder="Nome da igreja" minlength="2" maxlength="160" aria-describedby="church-error" required /><small class="form-field-error" id="church-error"></small></label>
-              <label for="lead-email">E-mail<input id="lead-email" name="email" type="email" autocomplete="email" placeholder="voce@igreja.com.br" maxlength="160" aria-describedby="email-error" required /><small class="form-field-error" id="email-error"></small></label>
-              <label class="demo-form-wide" for="lead-size">Quantidade aproximada de membros<select id="lead-size" name="size" aria-describedby="size-error" required><option value="">Selecione uma faixa</option><option>Até 100</option><option>101 a 500</option><option>501 a 1.000</option><option>Mais de 1.000</option></select><small class="form-field-error" id="size-error"></small></label>
-              <label class="demo-form-hidden" aria-hidden="true">Site da empresa<input name="companyWebsite" type="text" tabindex="-1" autocomplete="off" /></label>
+      <section class="section final-cta" id="demonstracao">
+        <div class="container cta-grid">
+          <div class="cta-copy">
+            <span class="section-kicker">MAIS TEMPO PARA O QUE IMPORTA</span>
+            <h2>
+              Veja o SimpleChurch<br />na rotina da sua igreja.<br /><em>Sem compromisso.</em>
+            </h2>
+            <p>
+              Conte um pouco sobre sua igreja. Nossa equipe usa essas informações para preparar uma
+              demonstração focada nos módulos e fluxos mais relevantes para você.
+            </p>
+            <div class="demo-promise">
+              <span
+                ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                Apresentação guiada pela nossa equipe</span
+              ><span
+                ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                Foco na realidade da sua igreja</span
+              ><span
+                ><svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
+                  <path d="m5 12 4 4L19 6" />
+                </svg>
+                Sem compromisso de contratação</span
+              >
             </div>
-            <label class="demo-form-consent">
-              <input name="privacyConsent" type="checkbox" value="yes" aria-describedby="consent-error" required />
-              <span>Autorizo o contato comercial do SimpleChurch e concordo com a <a href="privacidade.html">Política de privacidade</a>.<small class="form-field-error" id="consent-error"></small></span>
-            </label>
-            <div class="cta-actions">
-              <button class="button button-light button-large" type="submit" data-demo-submit>Solicitar demonstração <span>→</span></button>
+            <div class="cta-signature">
+              Gestão com clareza.<br /><span>Cuidado com propósito.</span
+              ><img
+                src="/assets/simplechurch-icon-dark-128.png"
+                alt=""
+                width="48"
+                height="48"
+                loading="lazy"
+              />
             </div>
-            <p class="demo-form-note">Demonstração consultiva, sem compromisso, com foco nos fluxos reais da sua igreja.</p>
-            <p class="demo-form-status" data-demo-status role="status" aria-live="polite"></p>
-            <noscript>
-              <p class="demo-form-noscript">Ative o JavaScript para solicitar uma demonstração pelo formulário.</p>
-            </noscript>
-          </form>
+          </div>
+          <div class="form-card">
+            <span class="form-kicker">VAMOS CONVERSAR</span>
+            <h3>Agende sua demonstração.</h3>
+            <form class="demo-form" data-demo-form novalidate>
+              <p class="demo-form-intro">
+                Leva cerca de 1 minuto. Depois, combinamos a apresentação pelo WhatsApp.
+              </p>
+              <div class="demo-form-grid">
+                <label for="lead-name"
+                  >Nome<input
+                    id="lead-name"
+                    name="name"
+                    type="text"
+                    autocomplete="name"
+                    placeholder="Seu nome"
+                    minlength="2"
+                    maxlength="120"
+                    aria-describedby="name-error"
+                    required /><small class="form-field-error" id="name-error"></small
+                ></label>
+                <label for="lead-phone"
+                  >WhatsApp<input
+                    id="lead-phone"
+                    name="phone"
+                    type="tel"
+                    inputmode="tel"
+                    autocomplete="tel"
+                    placeholder="(00) 00000-0000"
+                    maxlength="20"
+                    aria-describedby="phone-error"
+                    required /><small class="form-field-error" id="phone-error"></small
+                ></label>
+                <label for="lead-church"
+                  >Igreja<input
+                    id="lead-church"
+                    name="church"
+                    type="text"
+                    autocomplete="organization"
+                    placeholder="Nome da igreja"
+                    minlength="2"
+                    maxlength="160"
+                    aria-describedby="church-error"
+                    required /><small class="form-field-error" id="church-error"></small
+                ></label>
+                <label for="lead-email"
+                  >E-mail<input
+                    id="lead-email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="voce@igreja.com.br"
+                    maxlength="160"
+                    aria-describedby="email-error"
+                    required /><small class="form-field-error" id="email-error"></small
+                ></label>
+                <label class="demo-form-wide" for="lead-size"
+                  >Quantidade aproximada de membros<select
+                    id="lead-size"
+                    name="size"
+                    aria-describedby="size-error"
+                    required
+                  >
+                    <option value="">Selecione uma faixa</option>
+                    <option>Até 100</option>
+                    <option>101 a 500</option>
+                    <option>501 a 1.000</option>
+                    <option>Mais de 1.000</option></select
+                  ><small class="form-field-error" id="size-error"></small
+                ></label>
+                <label class="demo-form-hidden" aria-hidden="true"
+                  >Site da empresa<input
+                    name="companyWebsite"
+                    type="text"
+                    tabindex="-1"
+                    autocomplete="off"
+                /></label>
+              </div>
+              <label class="demo-form-consent">
+                <input
+                  name="privacyConsent"
+                  type="checkbox"
+                  value="yes"
+                  aria-describedby="consent-error"
+                  required
+                />
+                <span
+                  >Autorizo o contato comercial do SimpleChurch e concordo com a
+                  <a href="/privacidade">Política de privacidade</a>.<small
+                    class="form-field-error"
+                    id="consent-error"
+                  ></small
+                ></span>
+              </label>
+              <div class="cta-actions">
+                <button class="button button-primary button-large" type="submit" data-demo-submit>
+                  Agendar minha demonstração <span aria-hidden="true">↗</span>
+                </button>
+              </div>
+              <p class="demo-form-note">
+                Seus dados serão usados apenas para organizar o contato sobre a demonstração.
+              </p>
+              <p class="demo-form-status" data-demo-status role="status" aria-live="polite"></p>
+              <noscript>
+                <p class="demo-form-noscript">
+                  Ative o JavaScript para solicitar uma demonstração pelo formulário.
+                </p>
+              </noscript>
+            </form>
+          </div>
         </div>
       </section>
     </main>
-
     <footer class="site-footer">
       <div class="container footer-grid">
         <div class="footer-brand">
-          <a class="brand brand-light" href="#inicio" aria-label="SimpleChurch, voltar ao início">
-            <img class="brand-mark" src="assets/simplechurch-icon-dark-128.png" alt="" width="38" height="38" loading="lazy" decoding="async" />
-            <span>Simple<span>Church</span></span>
-          </a>
-          <p>Gestão moderna para igrejas, congregações e pessoas.</p>
+          <a class="brand" href="/" aria-label="SimpleChurch, página inicial"
+            ><img
+              src="/assets/simplechurch-icon-light-128.png"
+              width="36"
+              height="36"
+              alt=""
+            /><span>simple<span>church</span><sup>®</sup></span></a
+          >
+          <p>Tecnologia para organizar.<br />Mais tempo para cuidar.</p>
         </div>
-        <nav aria-label="Recursos no rodapé"><h2>Plataforma</h2><a href="#recursos">Recursos</a><a href="#congregacoes">Congregações</a><a href="#permissoes">Permissões</a><a href="#app">App do membro</a></nav>
-        <nav aria-label="Comercial no rodapé"><h2>Comercial</h2><a href="#demonstracao" data-commercial-cta data-cta-location="footer">Solicitar demonstração</a><a href="https://wa.me/5521974340508?text=Ol%C3%A1%2C%20estou%20entrando%20em%20contato%20via%20landing%20page." target="_blank" rel="noopener noreferrer" data-commercial-cta data-cta-location="footer_whatsapp">Falar no WhatsApp</a><a href="#faq">Dúvidas frequentes</a></nav>
-        <nav aria-label="Contato no rodapé"><h2>Contato</h2><a href="#demonstracao" data-commercial-cta data-cta-location="footer_contact">Solicitar demonstração</a><a href="#faq">Perguntas frequentes</a></nav>
+        <nav aria-label="Plataforma no rodapé">
+          <h2>Plataforma</h2>
+          <a href="#recursos">Recursos</a><a href="#congregacoes">Congregações</a
+          ><a href="#app">App do membro</a>
+        </nav>
+        <nav aria-label="Converse conosco">
+          <h2>Vamos conversar</h2>
+          <a href="#demonstracao" data-commercial-cta data-cta-location="footer"
+            >Agendar demonstração ↗</a
+          ><a
+            href="https://wa.me/5521974340508"
+            data-commercial-cta
+            data-cta-location="footer_whatsapp"
+            >WhatsApp ↗</a
+          ><a href="#faq">Dúvidas frequentes</a>
+        </nav>
+        <div class="footer-purpose">
+          <span>MENOS PROCESSOS.</span><strong>Mais propósito.</strong>
+        </div>
       </div>
-      <div class="container footer-bottom"><p>© <span data-year></span> SimpleChurch. Todos os direitos reservados.</p><div><a href="privacidade.html">Privacidade</a><a href="termos.html">Termos de uso</a></div></div>
+      <div class="container footer-bottom">
+        <p>© <span data-year>2026</span> SimpleChurch. Todos os direitos reservados.</p>
+        <div>
+          <button type="button" class="privacy-settings" data-privacy-settings>
+            Preferências de cookies</button
+          ><a href="/privacidade">Privacidade</a><a href="/termos">Termos de uso</a>
+        </div>
+      </div>
     </footer>
   </body>
 </html>

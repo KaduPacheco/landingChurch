@@ -10,17 +10,27 @@
   const nav = document.querySelector("[data-nav]");
 
   const trackConversion = (eventName, details = {}) => {
+    if (!window.SimpleChurchPrivacy?.allowed()) return;
     const payload = { event: eventName, ...details };
     window.dataLayer?.push(payload);
     window.dispatchEvent(new CustomEvent("simplechurch:conversion", { detail: payload }));
   };
 
   const getTrackingParams = () => {
+    if (!window.SimpleChurchPrivacy?.allowed()) return {};
     const params = new URLSearchParams(window.location.search);
-    const trackingKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid"];
+    const trackingKeys = [
+      "utm_source",
+      "utm_medium",
+      "utm_campaign",
+      "utm_term",
+      "utm_content",
+      "gclid",
+      "fbclid",
+    ];
     return trackingKeys.reduce((tracking, key) => {
       const value = params.get(key);
-      if (value) tracking[key] = value;
+      if (value) tracking[key] = value.slice(0, 500);
       return tracking;
     }, {});
   };
@@ -53,7 +63,7 @@
   });
 
   document.querySelector("[data-hero-secondary]")?.addEventListener("click", () => {
-    trackConversion("hero_secondary_click", { target: "#recursos" });
+    trackConversion("hero_secondary_click", { target: "#produto" });
   });
 
   document.querySelectorAll("[data-resource-link]").forEach((link) => {
@@ -69,7 +79,9 @@
   const demoStatus = document.querySelector("[data-demo-status]");
   const demoSubmit = document.querySelector("[data-demo-submit]");
   const phoneInput = demoForm?.querySelector('input[name="phone"]');
-  const formFields = [...(demoForm?.querySelectorAll("input:not([name=companyWebsite]), select") || [])];
+  const formFields = [
+    ...(demoForm?.querySelectorAll("input:not([name=companyWebsite]), select") || []),
+  ];
   let isSubmitting = false;
   let formStarted = false;
 
@@ -80,17 +92,20 @@
   };
 
   const formatPhone = (value) => {
-    const digits = value.replace(/\D/g, "").slice(0, 11);
+    let digits = value.replace(/\D/g, "");
+    if (digits.startsWith("55") && digits.length > 11) digits = digits.slice(2);
+    digits = digits.slice(0, 11);
     if (digits.length <= 2) return digits;
     if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
-    if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+    if (digits.length <= 10)
+      return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
     return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
   };
 
   const validatePhone = () => {
     if (!phoneInput) return true;
     const digits = phoneInput.value.replace(/\D/g, "");
-    const valid = digits.length >= 10 && digits.length <= 11;
+    const valid = /^[1-9]{2}(?:[2-5]\d{7}|9\d{8})$/.test(digits);
     phoneInput.setCustomValidity(valid ? "" : "Informe um WhatsApp com DDD.");
     return valid;
   };
@@ -107,9 +122,16 @@
 
   const updateFieldState = (field, showError = true) => {
     if (field.name === "phone") validatePhone();
+    if (["name", "church"].includes(field.name)) {
+      field.setCustomValidity(
+        field.value.trim().length < 2 ? "Informe pelo menos dois caracteres." : "",
+      );
+    }
     const message = showError ? getFieldMessage(field) : "";
-    field.toggleAttribute("aria-invalid", Boolean(message));
-    const error = field.getAttribute("aria-describedby")
+    if (message) field.setAttribute("aria-invalid", "true");
+    else field.removeAttribute("aria-invalid");
+    const error = field
+      .getAttribute("aria-describedby")
       ?.split(" ")
       .map((id) => document.getElementById(id))
       .find((element) => element?.classList.contains("form-field-error"));
@@ -187,7 +209,7 @@
 
     if (COMMERCIAL_FORM_ENDPOINT) {
       const controller = new AbortController();
-      const timeout = window.setTimeout(() => controller.abort(), 12_000);
+      const timeout = window.setTimeout(() => controller.abort(), 20_000);
       try {
         const response = await fetch(COMMERCIAL_FORM_ENDPOINT, {
           method: "POST",
@@ -195,12 +217,17 @@
           body: JSON.stringify(leadPayload),
           signal: controller.signal,
         });
-        if (!response.ok) throw new Error(`Endpoint retornou ${response.status}`);
+        if (!response.ok) {
+          const failure = new Error(`Endpoint retornou ${response.status}`);
+          failure.status = response.status;
+          throw failure;
+        }
+        const result = await response.json();
+        if (result.ok !== true) throw new Error("Resposta inválida do servidor");
         trackConversion("demo_form_submit_success", { transport: "endpoint" });
         setFormStatus("Solicitação recebida. Redirecionando...", "success");
         demoForm.reset();
         formFields.forEach((field) => updateFieldState(field, false));
-        restoreSubmit();
         window.location.assign("/obrigado");
         return;
       } catch (error) {
@@ -210,9 +237,11 @@
           reason: error?.name === "AbortError" ? "timeout" : "request_failed",
         });
         setFormStatus(
-          error?.name === "AbortError"
-            ? "O envio demorou mais que o esperado. Seus dados foram mantidos para você tentar novamente."
-            : "Não foi possível enviar agora. Seus dados continuam no formulário para você tentar novamente.",
+          error?.status === 429
+            ? "Você fez muitas tentativas. Aguarde alguns minutos antes de enviar novamente."
+            : error?.name === "AbortError"
+              ? "O envio demorou mais que o esperado. Seus dados foram mantidos para você tentar novamente."
+              : "Não foi possível enviar agora. Seus dados continuam no formulário para você tentar novamente.",
           "error",
         );
         return;
@@ -221,7 +250,10 @@
       }
     }
 
-    setFormStatus("Abra esta página pelo servidor do site para solicitar uma demonstração.", "error");
+    setFormStatus(
+      "Abra esta página pelo servidor do site para solicitar uma demonstração.",
+      "error",
+    );
     trackConversion("demo_form_submit_error", { transport: "missing_endpoint" });
     restoreSubmit();
   });
@@ -244,6 +276,18 @@
   });
 
   nav?.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && menuButton?.getAttribute("aria-expanded") === "true") {
+      closeMenu();
+      menuButton.focus();
+    }
+  });
+  document.addEventListener("click", (event) => {
+    if (!header?.contains(event.target)) closeMenu();
+  });
+  header?.addEventListener("focusout", (event) => {
+    if (event.relatedTarget && !header.contains(event.relatedTarget)) closeMenu();
+  });
   window.addEventListener("resize", () => {
     if (window.innerWidth > 960) closeMenu();
   });

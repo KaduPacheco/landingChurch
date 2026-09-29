@@ -1,8 +1,10 @@
 import { cpSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { staticFiles, verifyBuildFiles } from "./verify-build.mjs";
+import { dirname, join, resolve } from "node:path";
+import { repoRoot, staticFiles, verifyBuildFiles } from "./verify-build.mjs";
 
-const outputDir = "dist";
+const outputDir = resolve(repoRoot, "dist");
+if (dirname(outputDir) !== repoRoot)
+  throw new Error("Build output must stay inside the repository.");
 
 function readAnalyticsId(name, pattern) {
   const value = process.env[name]?.trim() || "";
@@ -19,17 +21,18 @@ function writeAnalyticsConfig() {
   if (directSetting && !["true", "false"].includes(directSetting)) {
     throw new Error("ANALYTICS_DIRECT_FORWARDING must be true or false.");
   }
-  if (!gtmId && !ga4Id && !metaPixelId) return;
 
-  const directEventForwarding = directSetting
-    ? directSetting === "true"
-    : !gtmId;
-  const config = `window.SIMPLECHURCH_ANALYTICS = ${JSON.stringify({
-    gtmId,
-    ga4Id,
-    metaPixelId,
-    directEventForwarding,
-  }, null, 2)};\n`;
+  const directEventForwarding = directSetting ? directSetting === "true" : !gtmId;
+  const config = `window.SIMPLECHURCH_ANALYTICS = ${JSON.stringify(
+    {
+      gtmId,
+      ga4Id,
+      metaPixelId,
+      directEventForwarding,
+    },
+    null,
+    2,
+  )};\n`;
 
   writeFileSync(join(outputDir, "analytics-config.js"), config, "utf8");
   console.log("Analytics configuration generated from environment variables.");
@@ -42,7 +45,7 @@ mkdirSync(outputDir, { recursive: true });
 for (const file of staticFiles) {
   const target = join(outputDir, file);
   mkdirSync(dirname(target), { recursive: true });
-  cpSync(file, target, { recursive: true });
+  cpSync(join(repoRoot, file), target, { recursive: true });
 }
 
 writeAnalyticsConfig();

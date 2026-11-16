@@ -15,11 +15,6 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - name: Prepare dependency security fixes
-        run: |
-          npm install zod@4.6.7 --save-exact --ignore-scripts
-          npm audit fix --ignore-scripts
-          node -e 'console.log("PACKAGE_SNAPSHOT=" + JSON.stringify(require("./package.json"))); console.log("LOCK_SNAPSHOT=" + JSON.stringify(require("./package-lock.json")))'
       - name: Audit production dependencies
         run: npm audit --omit=dev
       - run: npm run verify

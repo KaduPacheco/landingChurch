@@ -76,10 +76,10 @@ try {
   assert.equal(await page.locator("[data-menu-toggle]").getAttribute("aria-expanded"), "true");
   await page.keyboard.press("Escape");
   assert.equal(await page.locator("[data-menu-toggle]").getAttribute("aria-expanded"), "false");
-  await page.locator('[data-cta-location="hero"]').click();
-  await page.waitForFunction(() => window.location.hash === "#demonstracao");
+  assert.ok((await page.locator('[data-cta-location="hero"]').getAttribute("href")).startsWith("https://wa.me/5521974340508"));
+  await page.goto(base + "/#demonstracao");
   assert.equal(await page.locator("[data-demo-form]").isVisible(), true);
-  report.flows.push("hero CTA reaches the demo form");
+  report.flows.push("hero CTA goes directly to WhatsApp; form remains independently accessible");
   await page.locator("#faq-button-1").click();
   assert.equal(await page.locator("#faq-button-1").getAttribute("aria-expanded"), "true");
   assert.equal(await page.locator("#faq-1").isVisible(), true);
@@ -96,8 +96,7 @@ try {
   await page.locator("#lead-name").fill("Maria Teste");
   await page.locator("#lead-phone").fill("+55 21 97434-0508");
   await page.locator("#lead-church").fill("Comunidade Teste");
-  await page.locator("#lead-email").fill("teste@example.test");
-  await page.locator("#lead-size").selectOption("Até 100");
+  // Optional fields deliberately left empty.
   await page.locator('[name="privacyConsent"]').check();
   assert.equal(await page.locator("#lead-phone").inputValue(), "(21) 97434-0508");
   let submissions = 0;
@@ -110,7 +109,7 @@ try {
         body: '{"error":"unavailable"}',
       });
     assert.equal(route.request().postDataJSON().privacyConsent, "yes");
-    return route.fulfill({ status: 201, contentType: "application/json", body: '{"ok":true}' });
+    return route.fulfill({ status: 201, contentType: "application/json", body: JSON.stringify({ ok: true, id: route.request().postDataJSON().requestId }) });
   });
   await page.locator("[data-demo-submit]").click();
   await page.waitForFunction(
@@ -118,11 +117,15 @@ try {
   );
   assert.equal(await page.locator("#lead-name").inputValue(), "Maria Teste");
   assert.equal(await page.locator("[data-demo-submit]").isEnabled(), true);
+  assert.ok((await page.locator("[data-form-whatsapp]").getAttribute("href")).startsWith("https://wa.me/"));
   await page.locator("[data-demo-submit]").click();
-  await page.waitForURL("**/obrigado");
+  await page.waitForFunction(() => document.querySelector("[data-demo-status]").dataset.status === "success");
+  assert.equal(await page.locator("[data-demo-submit]").isDisabled(), true);
+  assert.ok((await page.locator("[data-form-whatsapp]").getAttribute("href")).includes("Maria"));
+  assert.equal(await page.locator("#lead-name").inputValue(), "Maria Teste");
   assert.equal(submissions, 2);
   report.flows.push(
-    "validation, +55 phone, error preserves fields, retry, success redirect (mock API)",
+    "validation, +55 phone, error preserves fields, retry, confirmed success, optional fields, WhatsApp fallback and duplicate prevention (mock API)",
   );
   for (const route of ["/obrigado", "/privacidade", "/termos"]) {
     await page.goto(base + route);

@@ -1,80 +1,54 @@
-# Backend SimpleChurch
+# Captação de contatos sem Supabase
 
-## Configuração
+A página comercial envia os contatos diretamente ao n8n pelo servidor. Não consulta nem grava no Supabase. O banco do produto de gestão das igrejas permanece fora deste fluxo. As migrações antigas ficam como histórico; não executar novas migrações para esta captação.
 
-1. Execute, na ordem, `supabase/migrations/001_create_demo_leads.sql` e `002_add_lead_webhook_status.sql` caso ainda não estejam aplicadas.
-2. Configure `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` exclusivamente no servidor. A tabela mantém RLS habilitado; o formulário não acessa o banco diretamente.
-3. Configure `ALLOWED_ORIGINS` para clientes de outras origens. A origem exata do próprio site é permitida automaticamente.
-4. Defina `N8N_WEBHOOK_URL` com o destino HTTPS desejado. Uma string vazia desativa notificações. Para preservar instalações existentes, a variável ausente mantém o destino legado já utilizado pelo repositório.
+## Configuração antes da publicação
 
-`TRUST_PROXY_HOPS` se aplica apenas ao Express atrás de um proxy conhecido. Sem configuração, cabeçalhos de IP enviados pelo cliente não são confiáveis. Na função Vercel, o adaptador usa o encaminhamento da plataforma.
+1. Definir `N8N_WEBHOOK_URL` (HTTPS) e `N8N_WEBHOOK_TOKEN` nos ambientes Preview e Production da hospedagem. Nenhum destino padrão permanece no código.
+2. No Webhook do n8n, configurar Header Auth: nome `Authorization`, valor `Bearer <mesmo token>`. Usar a URL de produção do workflow ativo.
+3. Preservar os campos do payload abaixo. O `id` passa a ser um UUID da requisição, sem relação com uma linha do Supabase. Remover do workflow qualquer consulta obrigatória a `demo_leads` ou atualização de status nessa tabela.
+4. Registrar o contato em armazenamento controlado pelo fluxo (por exemplo, Google Sheets). Usar `id` como chave de deduplicação. Uma consulta e inserção simples em Sheets não é atômica: serializar execuções se usar esse método.
+5. Somente após o registro durável, responder pelo nó Respond to Webhook com HTTP 200 e JSON `{ "ok": true, "id": "<id recebido>" }`. No n8n, usar a expressão do id do Webhook, por exemplo `$('Webhook').item.json.body.id` (ajustar o nome real do nó).
+6. Em retry de um id já registrado, retornar a mesma confirmação sem duplicar a linha. Notificações e mensagens comerciais são etapas separadas do registro; o site não comprova a entrega dessas mensagens.
+7. Em erro de registro, retornar status não-2xx. O retorno padrão “Workflow was started” não é confirmação.
+8. Verificar o fluxo com um contato de teste autorizado antes de integrar à produção. Nenhum contato real foi enviado durante a implementação.
 
-## Contrato HTTP
+O link direto do WhatsApp funciona mesmo sem essas configurações. Sem credenciais, com timeout ou resposta inesperada, o formulário informa que o registro não foi confirmado e oferece continuar pelo WhatsApp. Um timeout não prova que o n8n deixou de gravar, portanto o retry reutiliza o mesmo id enquanto os dados não forem editados.
 
-`POST /api/leads`, `Content-Type: application/json`, corpo limitado a 32 KiB.
+## Contrato
 
-```json
-{
-  "name": "Maria Alves",
-  "church": "Comunidade Central",
-  "phone": "(21) 97434-0508",
-  "email": "maria@example.com",
-  "size": "101 a 500",
-  "privacyConsent": "yes",
-  "companyWebsite": "",
-  "page": "/",
-  "tracking": { "utm_source": "google" }
-}
-```
+`POST /api/leads`, `Content-Type: application/json`, máximo 32 KiB.
 
-- `size`: `Até 100`, `101 a 500`, `501 a 1.000` ou `Mais de 1.000`.
-- `privacyConsent`: obrigatório e explicitamente igual a `yes`.
-- `companyWebsite`: honeypot; deve estar vazio para visitantes reais.
-- `tracking`: somente `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`, `gclid` e `fbclid`, com até 500 caracteres por valor. O navegador envia esses dados somente após consentimento opcional.
-- `source` e horário de recebimento são definidos pelo servidor. O cliente não controla o horário persistido.
+Obrigatórios: `name` (2–120), `church` (2–160), `phone` (DDD brasileiro), `privacyConsent: "yes"`.
+Opcionais: `email`, `size` (Até 100, 101 a 500, 501 a 1.000, Mais de 1.000), `page`, `tracking`, `requestId` (UUID).
+Campos opcionais vazios são aceitos. O honeypot `companyWebsite` deve estar vazio.
 
-Respostas:
+Payload encaminhado: `id, name, church, phone, email, size, source, page, submittedAt, privacyConsent, tracking`. Fonte e horário são definidos no servidor. O consentimento inclui `privacy_consent`, `consent_version` e `consent_at` em tracking. IP é usado apenas pelo limitador, não encaminhado no payload.
 
-| Status | Significado                               |
-| ------ | ----------------------------------------- |
-| 201    | Lead persistido; `{ "ok": true }`         |
-| 202    | Honeypot preenchido; nenhuma persistência |
-| 204    | Preflight permitido                       |
-| 400    | JSON ou campos inválidos                  |
-| 403    | Origem recusada                           |
-| 405    | Método não permitido                      |
-| 413    | Corpo excedeu o limite                    |
-| 415    | Tipo de conteúdo incorreto                |
-| 429    | Limite atingido; inclui `Retry-After`     |
-| 503    | Persistência indisponível                 |
+| Status | Significado |
+| --- | --- |
+| 201 | Registro confirmado pelo workflow: `{ "ok": true, "id": "..." }` |
+| 204 | Preflight autorizado |
+| 400 | Campos, JSON ou honeypot inválidos |
+| 403 | Origem recusada |
+| 405 | Método não permitido |
+| 413 | Corpo muito grande |
+| 415 | Content-Type incorreto |
+| 429 | Limite atingido, com Retry-After |
+| 503 | Configuração ausente ou registro não confirmado |
 
-As respostas não são armazenadas em cache. O cliente só redireciona para `/obrigado` após uma resposta HTTP de sucesso com `ok: true`. Falhas preservam os campos preenchidos.
+## Proteções e limites
 
-## Persistência e notificações
+HTTPS obrigatório, redirecionamentos do webhook recusados, token privado, timeout de 8 segundos, validação no servidor, honeypot, origem restrita e limite de 12 tentativas por IP/15 minutos por processo. CORS não é autenticação nem impede robôs. Em serverless os contadores não são globais; configurar WAF na hospedagem para proteção distribuída. Turnstile não foi ativado: exigiria chaves e integração próprias.
 
-O consentimento de contato, a versão do texto e o horário são registrados no JSON `tracking`, usando a estrutura existente da tabela. As credenciais não entram no build público nem nos logs de erro.
+Não há fila de reenvio no site nem deduplicação durável local. O id enviado em `Idempotency-Key` e no corpo permite ao n8n implementar deduplicação; o cabeçalho por si só não a garante. Sem id do navegador, o servidor gera um UUID. Após recarga ou edição dos dados, pode haver novo id.
 
-O cadastro é salvo antes da notificação. Falhas no webhook ou na atualização de seu status não alteram a resposta de sucesso de um lead já salvo. Notificações usam HTTPS, recusam redirecionamentos e têm prazo de 3 segundos. Operações do banco têm prazo de 5 segundos; o navegador aguarda até 20 segundos.
+`ALLOWED_ORIGINS` permite origens adicionais. `TRUST_PROXY_HOPS` só deve ser configurado para um proxy Express conhecido.
 
-`webhook_status` fica `sent` quando o destino responde com sucesso, `failed` quando falha e `pending` quando a notificação não foi executada ou não foi possível atualizar o status. Não há reprocessamento automático neste repositório.
+## Verificação
 
-## Proteção e limites
+`npm ci && npm run verify`: sintaxe, testes de backend e build.
+`npm run test:browser`: responsividade, acessibilidade e fluxos com API simulada; não cria leads reais.
+Os testes cobrem ausência de Supabase, autenticação, confirmação explícita, falhas, validação, campos opcionais, consentimento e repetição do id.
 
-O limitador permite 12 tentativas por IP a cada 15 minutos por processo. Expira entradas e limita a memória a 10 mil origens. Em múltiplas instâncias/serverless, os contadores não são globais: para tráfego elevado, aplique um limite compartilhado ou uma regra no firewall da plataforma.
-
-O formulário tem proteção contra clique duplicado durante o envio. Não existe idempotência persistida entre requisições ou recargas: uma conexão perdida após a gravação ainda pode gerar duplicidade ao tentar novamente.
-
-## Analytics
-
-Defina os IDs em variáveis de ambiente antes do build:
-
-```env
-GTM_ID=
-GA4_ID=
-META_PIXEL_ID=
-ANALYTICS_DIRECT_FORWARDING=
-```
-
-O build valida os formatos e gera `dist/analytics-config.js`. O consentimento opcional é separado da autorização de contato comercial. GTM tem prioridade; GA4/Meta diretos só são inicializados junto ao GTM quando o encaminhamento direto foi explicitamente habilitado. Evite habilitá-lo se o container já dispara os mesmos eventos.
-
-Eventos: `commercial_cta_click`, `navigation_click`, `mobile_menu_toggle`, `hero_secondary_click`, `resource_interest`, `faq_toggle`, `demo_form_start`, `demo_form_validation_error`, `demo_form_submit_attempt`, `demo_form_submit_success` e `demo_form_submit_error`. Dados pessoais do formulário não são incluídos nesses eventos. GA4 recebe `generate_lead` e Meta recebe `Lead` após sucesso; um simples clique no CTA não é contado como lead.
+Analytics continuam dependentes do consentimento opcional. Um clique no WhatsApp é intenção de contato, não venda nem registro confirmado. Dados pessoais não são enviados aos eventos de analytics.

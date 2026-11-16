@@ -4,7 +4,7 @@
     : "";
   const COMMERCIAL_FORM_SOURCE = "landing_simplechurch";
   const SALES_WHATSAPP_URL =
-    "https://wa.me/5521974340508?text=Ol%C3%A1%2C%20estou%20entrando%20em%20contato%20via%20landing%20page.";
+    "https://wa.me/5521974340508?text=" + encodeURIComponent("Olá! Quero conhecer o SimpleChurch e conversar sobre a gestão da minha igreja.");
   const header = document.querySelector("[data-header]");
   const menuButton = document.querySelector("[data-menu-toggle]");
   const nav = document.querySelector("[data-nav]");
@@ -82,6 +82,9 @@
   const formFields = [
     ...(demoForm?.querySelectorAll("input:not([name=companyWebsite]), select") || []),
   ];
+  const formWhatsApp = document.querySelector("[data-form-whatsapp]");
+  let requestId;
+  let submitted = false;
   let isSubmitting = false;
   let formStarted = false;
 
@@ -145,6 +148,13 @@
 
   formFields.forEach((field) => {
     field.addEventListener("input", () => {
+      requestId = undefined;
+      if (submitted) {
+        submitted = false;
+        demoSubmit.disabled = false;
+        demoSubmit.textContent = "Solicitar contato";
+        setFormStatus();
+      }
       updateFieldState(field, false);
       if (demoStatus?.dataset.status === "error") setFormStatus();
     });
@@ -160,7 +170,7 @@
 
   demoForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
-    if (isSubmitting) return;
+    if (isSubmitting || submitted) return;
 
     validatePhone();
     let firstInvalid;
@@ -195,7 +205,9 @@
 
     const formData = new FormData(demoForm);
     const lead = Object.fromEntries(formData.entries());
+    requestId ||= window.crypto?.randomUUID?.();
     const leadPayload = {
+      requestId,
       ...lead,
       name: lead.name?.trim(),
       church: lead.church?.trim(),
@@ -203,9 +215,14 @@
       email: lead.email?.trim(),
       source: COMMERCIAL_FORM_SOURCE,
       page: window.location.pathname,
-      submittedAt: new Date().toISOString(),
       tracking: getTrackingParams(),
     };
+
+    if (formWhatsApp) {
+      formWhatsApp.href = "https://wa.me/5521974340508?text=" + encodeURIComponent(
+        `Olá! Sou ${leadPayload.name}, da igreja ${leadPayload.church}. Gostaria de conhecer o SimpleChurch.`,
+      );
+    }
 
     if (COMMERCIAL_FORM_ENDPOINT) {
       const controller = new AbortController();
@@ -223,12 +240,15 @@
           throw failure;
         }
         const result = await response.json();
-        if (result.ok !== true) throw new Error("Resposta inválida do servidor");
+        if (result.ok !== true || !result.id || (requestId && result.id !== requestId))
+          throw new Error("Resposta inválida do servidor");
         trackConversion("demo_form_submit_success", { transport: "endpoint" });
-        setFormStatus("Solicitação recebida. Redirecionando...", "success");
-        demoForm.reset();
-        formFields.forEach((field) => updateFieldState(field, false));
-        window.location.assign("/obrigado");
+        setFormStatus("Contato recebido. Nossa equipe falará com você. Se preferir, continue agora pelo WhatsApp abaixo.", "success");
+        submitted = true;
+        isSubmitting = false;
+        demoSubmit.removeAttribute("aria-busy");
+        demoSubmit.textContent = "Contato recebido";
+        if (formWhatsApp) formWhatsApp.textContent = "Continuar conversa no WhatsApp ↗";
         return;
       } catch (error) {
         restoreSubmit();
@@ -240,8 +260,8 @@
           error?.status === 429
             ? "Você fez muitas tentativas. Aguarde alguns minutos antes de enviar novamente."
             : error?.name === "AbortError"
-              ? "O envio demorou mais que o esperado. Seus dados foram mantidos para você tentar novamente."
-              : "Não foi possível enviar agora. Seus dados continuam no formulário para você tentar novamente.",
+              ? "O registro automático não foi confirmado a tempo. Continue pelo WhatsApp abaixo ou tente novamente."
+              : "Não conseguimos confirmar o registro automático. Continue pelo WhatsApp abaixo. Seus dados foram mantidos.",
           "error",
         );
         return;

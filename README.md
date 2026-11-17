@@ -50,3 +50,9 @@ Para conectar um Chrome de testes já iniciado, configure `TEST_CDP_URL`. `TEST_
 IDs de analytics são lidos no build. Sem IDs configurados, não há carregamento de provedores. Com IDs, o carregamento depende de consentimento; o rodapé permite alterar a preferência. Quando GTM gerencia os provedores, o encaminhamento direto fica desabilitado por padrão.
 
 Veja [BACKEND.md](BACKEND.md) para configurar integrações e [AUDITORIA.md](AUDITORIA.md) para os achados, correções e limites da validação.
+
+## Fluxo de notificação existente
+
+Para o workflow fornecido, configure `N8N_WEBHOOK_MODE=legacy_notification` e `N8N_WEBHOOK_URL` exclusivamente no servidor. Esse modo aceita `{ok:true,protocolo:id}` após a notificação comercial e não exige um token que o workflow atual não valida. O modo padrão continua exigindo Bearer token e `{ok:true,id}`. A quantidade de membros também é enviada em `quantidadeMembros`.
+
+A confirmação significa encaminhamento, não entrega/leitura do WhatsApp nem persistência em planilha. O workflow atual não possui deduplicação durável; uma repetição após timeout pode gerar dois avisos. Não há repetição automática. Para autenticar o destino, configure Header Auth no n8n e um token privado antes de trocar para o modo padrão.

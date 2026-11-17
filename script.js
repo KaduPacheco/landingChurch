@@ -4,7 +4,10 @@
     : "";
   const COMMERCIAL_FORM_SOURCE = "landing_simplechurch";
   const SALES_WHATSAPP_URL =
-    "https://wa.me/5521974340508?text=" + encodeURIComponent("Olá! Quero conhecer o SimpleChurch e conversar sobre a gestão da minha igreja.");
+    "https://wa.me/5521974340508?text=" +
+    encodeURIComponent(
+      "Olá! Quero conhecer o SimpleChurch e conversar sobre a gestão da minha igreja.",
+    );
   const header = document.querySelector("[data-header]");
   const menuButton = document.querySelector("[data-menu-toggle]");
   const nav = document.querySelector("[data-nav]");
@@ -219,9 +222,11 @@
     };
 
     if (formWhatsApp) {
-      formWhatsApp.href = "https://wa.me/5521974340508?text=" + encodeURIComponent(
-        `Olá! Sou ${leadPayload.name}, da igreja ${leadPayload.church}. Gostaria de conhecer o SimpleChurch.`,
-      );
+      formWhatsApp.href =
+        "https://wa.me/5521974340508?text=" +
+        encodeURIComponent(
+          `Olá! Sou ${leadPayload.name}, da igreja ${leadPayload.church}. Gostaria de conhecer o SimpleChurch.`,
+        );
     }
 
     if (COMMERCIAL_FORM_ENDPOINT) {
@@ -243,7 +248,10 @@
         if (result.ok !== true || !result.id || (requestId && result.id !== requestId))
           throw new Error("Resposta inválida do servidor");
         trackConversion("demo_form_submit_success", { transport: "endpoint" });
-        setFormStatus("Contato recebido. Nossa equipe falará com você. Se preferir, continue agora pelo WhatsApp abaixo.", "success");
+        setFormStatus(
+          "Solicitação encaminhada à equipe. Nossa equipe falará com você. Se preferir, continue agora pelo WhatsApp abaixo.",
+          "success",
+        );
         submitted = true;
         isSubmitting = false;
         demoSubmit.removeAttribute("aria-busy");
@@ -331,4 +339,31 @@
 
   const year = document.querySelector("[data-year]");
   if (year) year.textContent = String(new Date().getFullYear());
+})();
+
+// Accessible, keyboard-operable examples. These panels never query church records.
+(() => {
+  const tabs = [...document.querySelectorAll("[data-product-tab]")];
+  const activate = (tab) => {
+    for (const item of tabs) {
+      const selected = item === tab;
+      item.setAttribute("aria-selected", String(selected));
+      item.tabIndex = selected ? 0 : -1;
+      document.getElementById(item.getAttribute("aria-controls")).hidden = !selected;
+    }
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => activate(tab));
+    tab.addEventListener("keydown", (event) => {
+      let next;
+      if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
+      if (event.key === "ArrowLeft") next = (index + tabs.length - 1) % tabs.length;
+      if (event.key === "Home") next = 0;
+      if (event.key === "End") next = tabs.length - 1;
+      if (next === undefined) return;
+      event.preventDefault();
+      activate(tabs[next]);
+      tabs[next].focus();
+    });
+  });
 })();

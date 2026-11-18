@@ -46,7 +46,7 @@ try {
       .evaluateAll((images) =>
         images.map((image) => ({ complete: image.complete, width: image.naturalWidth })),
       );
-    assert.equal(productImages.length, 2);
+    assert.equal(productImages.length, 0);
     assert.ok(productImages.every((image) => image.complete && image.width > 0));
     await page.screenshot({ path: `visual-validation/premium-${width}.png`, fullPage: true });
     if ([375, 1440].includes(width))

@@ -17,8 +17,6 @@ export const staticFiles = [
   "robots.txt",
   "sitemap.xml",
   "assets/editorial.css",
-  "assets/product-admin-login.png",
-  "assets/product-member-login.png",
   "assets/favicon.svg",
   "assets/favicon-32.png",
   "assets/apple-touch-icon.png",

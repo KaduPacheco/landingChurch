@@ -1,6 +1,6 @@
 # SimpleChurch
 
-Landing page do SimpleChurch com HTML semântico, CSS responsivo e JavaScript progressivo. Captação de leads com Node/Express ou Vercel Functions e persistência no Supabase.
+Landing page do SimpleChurch com HTML semântico, CSS responsivo e JavaScript progressivo. Captação de leads com Node/Express ou Vercel Functions e encaminhamento autenticado ao n8n, sem banco de dados na captação.
 
 ## Desenvolvimento
 
@@ -27,7 +27,7 @@ npm run format:check # formatação
 npm audit            # consulta atualizada de dependências
 ```
 
-Os testes de navegador iniciam um servidor isolado sem carregar `.env` e interceptam o endpoint do formulário. Não criam leads reais nem acionam notificações comerciais. Os testes de backend usam armazenamento e notificações simulados.
+Os testes de navegador iniciam um servidor isolado sem carregar `.env` e interceptam o endpoint do formulário. Não criam leads reais nem acionam notificações comerciais. Os testes de backend usam respostas simuladas do webhook.
 
 Para conectar um Chrome de testes já iniciado, configure `TEST_CDP_URL`. `TEST_BASE_URL` permite verificar um servidor específico. Capturas e relatório são gravados em `visual-validation/`, ignorado pelo Git. O teste visual cobre 320, 375, 430, 768, 1024 e 1440 pixels; a análise automática de acessibilidade usa axe-core, com regras WCAG A/AA.
 
@@ -36,7 +36,7 @@ Para conectar um Chrome de testes já iniciado, configure `TEST_CDP_URL`. `TEST_
 - `index.html`, `styles.css`, `script.js`: apresentação, navegação e formulário.
 - `analytics.js`: preferências e carregamento condicional de analytics.
 - `lib/lead-handler.js`: regras HTTP comuns aos dois ambientes.
-- `lib/leads.js`: validação, persistência e notificações.
+- `lib/leads.js`: validação e entrega autenticada com confirmação do n8n.
 - `lib/app.js`, `server.js`: servidor Express e arquivos públicos permitidos.
 - `api/leads.js`: adaptador Vercel.
 - `lib/security.js`: política de segurança; o build verifica a paridade com `vercel.json`.
@@ -50,3 +50,9 @@ Para conectar um Chrome de testes já iniciado, configure `TEST_CDP_URL`. `TEST_
 IDs de analytics são lidos no build. Sem IDs configurados, não há carregamento de provedores. Com IDs, o carregamento depende de consentimento; o rodapé permite alterar a preferência. Quando GTM gerencia os provedores, o encaminhamento direto fica desabilitado por padrão.
 
 Veja [BACKEND.md](BACKEND.md) para configurar integrações e [AUDITORIA.md](AUDITORIA.md) para os achados, correções e limites da validação.
+
+## Fluxo de notificação existente
+
+Para o workflow fornecido, configure `N8N_WEBHOOK_MODE=legacy_notification` e `N8N_WEBHOOK_URL` exclusivamente no servidor. Esse modo aceita `{ok:true,protocolo:id}` após a notificação comercial e não exige um token que o workflow atual não valida. O modo padrão continua exigindo Bearer token e `{ok:true,id}`. A quantidade de membros também é enviada em `quantidadeMembros`.
+
+A confirmação significa encaminhamento, não entrega/leitura do WhatsApp nem persistência em planilha. O workflow atual não possui deduplicação durável; uma repetição após timeout pode gerar dois avisos. Não há repetição automática. Para autenticar o destino, configure Header Auth no n8n e um token privado antes de trocar para o modo padrão.

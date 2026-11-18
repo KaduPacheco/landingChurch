@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createLeadHandler, createRateLimiter } from "../lib/lead-handler.js";
-import { leadSchema, saveLead, sendLeadToWebhook } from "../lib/leads.js";
+import { leadSchema, sendLeadToWebhook } from "../lib/leads.js";
 import { createApp } from "../lib/app.js";
 
 const validLead = {
@@ -45,11 +45,14 @@ const request = (override = {}) => ({
 });
 function handler(options = {}) {
   return createLeadHandler({
-    client: () => ({}),
-    persist: async () => ({ data: { id: "lead-id" } }),
+    webhook: async () => {},
     logger: { error() {} },
     ...options,
-    env: { N8N_WEBHOOK_URL: "", ...options.env },
+    env: {
+      N8N_WEBHOOK_URL: "https://notify.test",
+      N8N_WEBHOOK_TOKEN: "test-token",
+      ...options.env,
+    },
   });
 }
 async function call(req, options) {
@@ -70,40 +73,6 @@ test("validates consent, member range, phone and timestamp", () => {
   ]) {
     assert.equal(leadSchema.safeParse({ ...validLead, ...patch }).success, false);
   }
-});
-test("accepts JSON and saves a server-generated timestamp", async () => {
-  let saved;
-  const res = await call(
-    request({ body: JSON.stringify({ ...validLead, submittedAt: "2001-01-01T00:00:00.000Z" }) }),
-    {
-      persist: async ({ lead }) => {
-        saved = lead;
-        return { data: { id: "id" } };
-      },
-    },
-  );
-  assert.equal(res.code, 201);
-  assert.equal(res.body.ok, true);
-  assert.ok(new Date(saved.submittedAt).getTime() > Date.now() - 5000);
-});
-test("rejects untrusted origins before persistence", async () => {
-  let persisted = false;
-  const res = await call(
-    request({
-      headers: {
-        host: "localhost:3000",
-        origin: "https://evil.test",
-        "content-type": "application/json",
-      },
-    }),
-    {
-      persist: () => {
-        persisted = true;
-      },
-    },
-  );
-  assert.equal(res.code, 403);
-  assert.equal(persisted, false);
 });
 test("accepts allowlisted origins and handles preflight", async () => {
   const res = await call(
@@ -136,72 +105,6 @@ test("rejects unsupported methods, content types, malformed JSON and oversized b
   );
   assert.equal((await call(request({ body: null }))).code, 400);
 });
-test("honeypot succeeds without contacting storage", async () => {
-  const res = await call(request({ body: { companyWebsite: "bot.test" } }), {
-    client: () => {
-      throw new Error("must not run");
-    },
-  });
-  assert.equal(res.code, 202);
-});
-test("unavailable storage returns a retryable failure without leaking internals", async () => {
-  assert.equal((await call(request(), { client: () => null })).code, 503);
-  const res = await call(request(), {
-    persist: async () => {
-      throw new Error("secret credential");
-    },
-  });
-  assert.equal(res.code, 503);
-  assert.ok(!JSON.stringify(res).includes("secret credential"));
-});
-test("saved leads remain successful when notification and status update fail", async () => {
-  let status;
-  const res = await call(request(), {
-    env: { N8N_WEBHOOK_URL: "https://notify.test" },
-    webhook: async () => {
-      throw new Error("timeout");
-    },
-    updateStatus: async (data) => {
-      status = data.status;
-      throw new Error("database offline");
-    },
-  });
-  assert.equal(res.code, 201);
-  assert.equal(status, "failed");
-});
-test("successful notifications record their delivery status", async () => {
-  let status;
-  const res = await call(request(), {
-    env: { N8N_WEBHOOK_URL: "https://notify.test" },
-    webhook: async () => {},
-    updateStatus: async (data) => {
-      status = data.status;
-      return {};
-    },
-  });
-  assert.equal(res.code, 201);
-  assert.equal(status, "sent");
-});
-test("no configured webhook means no outbound notification", async () => {
-  const res = await call(request(), {
-    webhook: () => {
-      throw new Error("must not run");
-    },
-  });
-  assert.equal(res.code, 201);
-});
-test("legacy notification destination remains compatible when the variable is absent", async () => {
-  let destination;
-  const res = await call(request(), {
-    env: { N8N_WEBHOOK_URL: undefined },
-    webhook: async ({ webhookUrl }) => {
-      destination = webhookUrl;
-    },
-    updateStatus: async () => ({}),
-  });
-  assert.equal(res.code, 201);
-  assert.equal(destination, "https://n8n.forteia.com.br/webhook/LandingChurch");
-});
 test("rate limiter expires buckets and responds with Retry-After", async () => {
   let now = 0;
   const limit = createRateLimiter({ limit: 1, now: () => now });
@@ -216,16 +119,6 @@ test("rate limiter expires buckets and responds with Retry-After", async () => {
   await h(request(), accepted);
   assert.equal(accepted.code, 201);
 });
-test("direct server does not trust a spoofed forwarded IP", async () => {
-  let ip;
-  await call(request({ headers: { ...request().headers, "x-forwarded-for": "1.2.3.4" } }), {
-    persist: async ({ ipAddress }) => {
-      ip = ipAddress;
-      return { data: { id: "id" } };
-    },
-  });
-  assert.equal(ip, "127.0.0.1");
-});
 test("only known campaign fields are retained", () => {
   const parsed = leadSchema.parse({
     ...validLead,
@@ -234,20 +127,6 @@ test("only known campaign fields are retained", () => {
   });
   assert.deepEqual(parsed.tracking, { utm_source: "google" });
   assert.equal(parsed.unknown, undefined);
-});
-test("persistence retains the contact-consent evidence", async () => {
-  let inserted;
-  const supabase = {
-    from: () => ({
-      insert: (data) => {
-        inserted = data;
-        return { select: () => ({ single: async () => ({ data: { id: "id" } }) }) };
-      },
-    }),
-  };
-  await saveLead({ supabase, lead: { ...validLead, submittedAt: "2026-09-29T12:00:00.000Z" } });
-  assert.equal(inserted.tracking.privacy_consent, true);
-  assert.equal(inserted.tracking.consent_at, "2026-09-29T12:00:00.000Z");
 });
 test("webhooks require HTTPS before sending any data", async () => {
   await assert.rejects(
@@ -288,4 +167,175 @@ test("Express serves only public files, matches security policy, and handles inv
     body: JSON.stringify({ data: "x".repeat(34000) }),
   });
   assert.equal(tooLarge.status, 413);
+});
+
+test("only three contact fields and explicit consent are required", () => {
+  const minimal = {
+    name: "Maria",
+    church: "Igreja Central",
+    phone: "21974340508",
+    privacyConsent: "yes",
+  };
+  assert.equal(leadSchema.safeParse(minimal).success, true);
+  assert.equal(leadSchema.safeParse({ ...minimal, email: "", size: "" }).success, true);
+  assert.equal(leadSchema.safeParse({ ...minimal, email: "invalid" }).success, false);
+  assert.equal(leadSchema.safeParse({ ...minimal, requestId: "invalid" }).success, false);
+});
+test("sends directly to webhook with UUID, server timestamp and consent; no Supabase config", async () => {
+  let sent;
+  const before = Date.now();
+  const res = await call(
+    request({
+      body: JSON.stringify({
+        ...validLead,
+        source: "spoof",
+        submittedAt: "2001-01-01T00:00:00.000Z",
+      }),
+    }),
+    {
+      webhook: async (args) => {
+        sent = args;
+      },
+    },
+  );
+  assert.equal(res.code, 201);
+  assert.equal(res.body.id, sent.leadId);
+  assert.match(sent.leadId, /^[0-9a-f-]{36}$/);
+  assert.equal(sent.lead.source, "landing_simplechurch");
+  assert.ok(Date.parse(sent.lead.submittedAt) >= before);
+  assert.equal(sent.lead.privacyConsent, "yes");
+  assert.equal(sent.webhookToken, "test-token");
+});
+test("keeps the same id on retries for workflow deduplication", async () => {
+  const requestId = "18c293df-4e9c-4ec3-8029-485d29291d84";
+  let sent;
+  const res = await call(request({ body: { ...validLead, requestId } }), {
+    webhook: async (args) => {
+      sent = args;
+    },
+  });
+  assert.equal(res.body.id, requestId);
+  assert.equal(sent.leadId, requestId);
+});
+test("missing configuration never contacts a legacy URL or reports success", async () => {
+  for (const env of [
+    { N8N_WEBHOOK_URL: undefined },
+    { N8N_WEBHOOK_URL: "" },
+    { N8N_WEBHOOK_TOKEN: "" },
+  ]) {
+    let called = false;
+    const res = await call(request(), {
+      env,
+      webhook: async () => {
+        called = true;
+      },
+    });
+    assert.equal(res.code, 503);
+    assert.equal(called, false);
+    assert.notEqual(res.body.ok, true);
+  }
+});
+test("webhook timeout/failure is an unconfirmed registration, not success", async () => {
+  const res = await call(request(), {
+    webhook: async () => {
+      throw new Error("secret credential");
+    },
+  });
+  assert.equal(res.code, 503);
+  assert.notEqual(res.body.ok, true);
+  assert.ok(!JSON.stringify(res).includes("secret credential"));
+});
+test("untrusted origins and honeypots never contact the webhook", async () => {
+  for (const req of [
+    request({ headers: { ...request().headers, origin: "https://evil.test" } }),
+    request({ body: { companyWebsite: "bot.test" } }),
+  ]) {
+    let called = false;
+    const res = await call(req, {
+      webhook: async () => {
+        called = true;
+      },
+    });
+    assert.ok([400, 403].includes(res.code));
+    assert.equal(called, false);
+  }
+});
+test("direct Express does not trust a spoofed forwarded IP", async () => {
+  let ip;
+  await call(request({ headers: { ...request().headers, "x-forwarded-for": "1.2.3.4" } }), {
+    rateLimit: (key) => {
+      ip = key;
+      return 0;
+    },
+  });
+  assert.equal(ip, "127.0.0.1");
+});
+test("webhook sends authenticated compatible payload and consent evidence", async () => {
+  let options;
+  await sendLeadToWebhook({
+    lead: { ...validLead, submittedAt: "2026-11-16T12:00:00.000Z" },
+    leadId: "test-id",
+    webhookUrl: "https://notify.test",
+    webhookToken: "test-token",
+    fetchImpl: async (_url, args) => {
+      options = args;
+      return { ok: true, json: async () => ({ ok: true, id: "test-id" }) };
+    },
+  });
+  const payload = JSON.parse(options.body);
+  assert.equal(options.headers.Authorization, "Bearer test-token");
+  assert.equal(options.headers["Idempotency-Key"], "test-id");
+  assert.equal(options.redirect, "error");
+  assert.equal(payload.id, "test-id");
+  assert.equal(payload.name, validLead.name);
+  assert.equal(payload.privacyConsent, "yes");
+  assert.equal(payload.tracking.privacy_consent, true);
+  assert.equal(payload.tracking.consent_at, payload.submittedAt);
+});
+test("generic 2xx, mismatched acknowledgement and upstream errors do not count as registered", async () => {
+  const args = {
+    lead: validLead,
+    leadId: "test-id",
+    webhookUrl: "https://notify.test",
+    webhookToken: "test-token",
+  };
+  for (const reply of [
+    { ok: false },
+    { ok: true, json: async () => ({ message: "Workflow was started" }) },
+    { ok: true, json: async () => ({ ok: true, id: "wrong" }) },
+    {
+      ok: true,
+      json: async () => {
+        throw new Error("Invalid JSON");
+      },
+    },
+  ]) {
+    await assert.rejects(sendLeadToWebhook({ ...args, fetchImpl: async () => reply }));
+  }
+  await assert.rejects(sendLeadToWebhook({ ...args, webhookToken: "" }), /authentication/);
+});
+
+test("legacy notification confirms matching protocol and member range without invented auth", async () => {
+  const id = "55e39435-1874-49fc-a65a-02bc3273bd77";
+  const options = {
+    lead: validLead,
+    leadId: id,
+    webhookUrl: "https://example.test/webhook",
+    webhookMode: "legacy_notification",
+  };
+  await sendLeadToWebhook({
+    ...options,
+    fetchImpl: async (_url, request) => {
+      assert.equal(request.headers.Authorization, undefined);
+      assert.equal(JSON.parse(request.body).quantidadeMembros, validLead.size);
+      return { ok: true, json: async () => ({ ok: true, protocolo: id }) };
+    },
+  });
+  await assert.rejects(
+    sendLeadToWebhook({
+      ...options,
+      fetchImpl: async () => ({ ok: true, json: async () => ({ ok: true, protocolo: "wrong" }) }),
+    }),
+  );
+  await assert.rejects(sendLeadToWebhook({ ...options, webhookMode: undefined }));
 });

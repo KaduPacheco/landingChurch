@@ -249,13 +249,13 @@
           throw new Error("Resposta inválida do servidor");
         trackConversion("demo_form_submit_success", { transport: "endpoint" });
         setFormStatus(
-          "Solicitação encaminhada à equipe. Nossa equipe falará com você. Se preferir, continue agora pelo WhatsApp abaixo.",
+          "Solicitação encaminhada. Nossa equipe falará com você. Se preferir, continue agora pelo WhatsApp abaixo.",
           "success",
         );
         submitted = true;
         isSubmitting = false;
         demoSubmit.removeAttribute("aria-busy");
-        demoSubmit.textContent = "Contato recebido";
+        demoSubmit.textContent = "Solicitação encaminhada";
         if (formWhatsApp) formWhatsApp.textContent = "Continuar conversa no WhatsApp ↗";
         return;
       } catch (error) {

@@ -33,6 +33,7 @@ try {
     const layout = await page.evaluate(() => ({
       width: innerWidth,
       scrollWidth: document.documentElement.scrollWidth,
+      overflowElements: [...document.querySelectorAll("body *")].filter(el => { const r = el.getBoundingClientRect(); return r.width && r.right > innerWidth + 1; }).slice(0, 15).map(el => ({tag:el.tagName, class:el.className, right:el.getBoundingClientRect().right})),
       brokenAnchors: [...document.querySelectorAll('a[href^="#"]')]
         .map((a) => a.getAttribute("href"))
         .filter((href) => href.length > 1 && !document.getElementById(href.slice(1))),
@@ -71,6 +72,12 @@ try {
       });
     }
   }
+  await page.locator("#tab-financeiro").click();
+  assert.equal(await page.locator("#panel-financeiro").isVisible(), true);
+  await page.locator("#tab-financeiro").press("ArrowRight");
+  assert.equal(await page.locator("#tab-filiais").getAttribute("aria-selected"), "true");
+  assert.equal(await page.locator("#panel-filiais").isVisible(), true);
+  report.flows.push("product tabs: click and keyboard navigation");
   await page.setViewportSize({ width: 375, height: 812 });
   await page.locator("[data-menu-toggle]").click();
   assert.equal(await page.locator("[data-menu-toggle]").getAttribute("aria-expanded"), "true");
